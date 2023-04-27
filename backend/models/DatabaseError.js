@@ -1,3 +1,4 @@
-//here we make new error message...... idk what exactly
+/**Error for case of database failure */
 class DatabaseError extends Error {}
+
 module.exports = {DatabaseError};
