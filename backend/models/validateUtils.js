@@ -79,4 +79,58 @@ function isValidDate(projectDueDay) {
   }
 }
 
-module.exports = { isValid, isValidName, isValidDate };
+/**
+ * Validates string date using Date.parse
+ * @param {string} date expected format: April 24, 2019
+ * @returns true/false
+ */
+function dateIsValid(date) {
+  const result = Date.parse(date);
+  if (isNaN(result)) {
+    console.log(
+      "Error! Date: '" +
+        date +
+        "' is invalid. Please input a valid string following this format: April 24, 2019"
+    );
+    return false;
+  }
+  return true;
+}
+
+/**
+ * Validates URL string using the JavaScript URL object. If invalid, URL object constructor
+ * throws a TypeError that is caught.
+ * @param {string} url
+ * @returns true/false
+ */
+function urlIsValid(url) {
+  try {
+    const newURL = new URL(url);
+    return true;
+  } catch (err) {
+    console.log(
+      "Error! URL: '" +
+        url +
+        "' is invalid. Please input a valid HTTP/HTTPS URL."
+    );
+    return false;
+  }
+}
+
+/**
+ * Validates name string using validator NPM package. Makes sure it's a string and that all characters are
+ * alphanumerical.
+ * @param {string} name
+ * @returns true/false
+ */
+function nameIsValid(name) {
+  if (typeof name != "string") {
+    console.log(
+      "Error! Name: '" + name + "' is invalid. Please input a valid string."
+    );
+    return false;
+  }
+  return true;
+}
+
+module.exports = { isValid, isValidName, isValidDate, nameIsValid, urlIsValid, dateIsValid };
