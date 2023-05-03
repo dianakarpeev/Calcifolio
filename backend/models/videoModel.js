@@ -6,7 +6,6 @@ const { InvalidLengthError } = require("./InvalidLengthError");
 const { DatabaseError } = require("./DatabaseError");
 const logger = require('../logger');
 let client;
-let db;
 let videoCollection;
 
 /**
@@ -14,8 +13,9 @@ let videoCollection;
  * @param databaseName optional name of the database
  * @param reset Resets the collection if set to true
  */
-async function initialize(url, databaseName = dbName, reset) {
+async function initialize(databaseName = dbName, reset, url) {
   try {
+    client = new MongoClient(url); //store connected client for use while the app is running
     await client.connect();
     logger.info("Connected to MongoDB");
     db = client.db(databaseName);
