@@ -10,11 +10,11 @@ const dbName = "eventDeadline_db";
  * Initialize the database connection
  * @constructor
  */
-//videoModel.initialize(dbName, false, url)
 model.initialize(dbName, false, url)
     .then(
-        
+        videoModel.initialize(dbName, false, url)
+        .then (
         app.listen(port) // Run the server
-    );
+        )   );
 
 
