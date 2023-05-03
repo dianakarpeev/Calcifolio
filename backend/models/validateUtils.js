@@ -1,6 +1,5 @@
 const validator = require("validator");
 const { InvalidInputError } = require("./InvalidInputError");
-const validator = require('validator');
 const { InvalidTitleError } = require('./InvalidTitleError');
 const {InvalidLengthError } = require('./InvalidLengthError');
 
