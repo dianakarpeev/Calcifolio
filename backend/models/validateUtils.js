@@ -127,14 +127,14 @@ function nameIsValid(name) {
   if (typeof name != "string") {
     console.log(
       "Error! Name: '" + name + "' is invalid. Please input a valid string."
-    ); 
+    );
     return false;
   }
   return true;
 }
 
 /**
- * Checks if password contains: 
+ * Checks if password contains:
  * - 8 characters
  * - 1 uppercase letter
  * - 1 lowercase letter
@@ -143,9 +143,13 @@ function nameIsValid(name) {
  * @param {string} password to validate
  * @returns true if valid, false other
  */
-function isValidPassword(password){
-  if (!validator.isStrongPassword(password)){
-    console.log("Error! Password '" + password + "' is invalid. Please input a valid password that contains:");
+function isValidPassword(password) {
+  if (!validator.isStrongPassword(password)) {
+    console.log(
+      "Error! Password '" +
+        password +
+        "' is invalid. Please input a valid password that contains:"
+    );
     console.log("- 8 characters");
     console.log("- 1 uppercase");
     console.log("- 1 lowercase");
@@ -166,38 +170,46 @@ function isValidPassword(password){
  * @param {string} username to validate
  * @returns true if valid, false otherwise
  */
-function isValidUsername(username){
-  const specialChars =/[`!@#$%^&*()_\+=\[\]{};':"\\|,.<>\/?~ ]/;
+function isValidUsername(username) {
+  const specialChars = /[`!@#$%^&*()_\+=\[\]{};':"\\|,.<>\/?~ ]/;
   const minAmountChars = 3;
   const maxAmountChars = 11;
-  
+
   //if username is not a string
-  if (!validator.isString(username)){
+  if (!validator.isString(username)) {
     console.log("Error! Username '" + username + "' needs to be a string.");
     return false;
   }
 
   //if username is empty
-  if (validator.isEmpty(username)){
+  if (validator.isEmpty(username)) {
     console.log("Error! Username cannot be empty.");
     return false;
   }
 
   //if username is under 3 characters
-  if (username.length < minAmountChars){
-    console.log("Error! Username '" + username + "' cannot be under 3 characters long.");
+  if (username.length < minAmountChars) {
+    console.log(
+      "Error! Username '" + username + "' cannot be under 3 characters long."
+    );
     return false;
   }
 
   //if username is above 10 characters
-  if (username.length > maxAmountChars){
-    console.log("Error! Username '" + username + "' is invalid due to having more characters than the maximum limit of 10.");
+  if (username.length > maxAmountChars) {
+    console.log(
+      "Error! Username '" +
+        username +
+        "' is invalid due to having more characters than the maximum limit of 10."
+    );
     return false;
   }
 
   //if username contains special characters
-  if (specialChars.test(username)){
-    console.log("Error! Username '" + username + "' cannot contain special characters.");
+  if (specialChars.test(username)) {
+    console.log(
+      "Error! Username '" + username + "' cannot contain special characters."
+    );
     return false;
   }
 
@@ -205,4 +217,12 @@ function isValidUsername(username){
   return true;
 }
 
-module.exports = { isValid, isValidName, isValidDate, nameIsValid, urlIsValid, dateIsValid, isValidPassword };
+module.exports = {
+  isValid,
+  isValidName,
+  isValidDate,
+  nameIsValid,
+  urlIsValid,
+  dateIsValid,
+  isValidPassword,
+};
