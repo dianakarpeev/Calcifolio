@@ -225,4 +225,5 @@ module.exports = {
   urlIsValid,
   dateIsValid,
   isValidPassword,
+  isValidUsername
 };
