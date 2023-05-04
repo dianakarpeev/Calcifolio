@@ -42,6 +42,31 @@ function isValid(projectName, projectDueDay) {
 }
 
 /**
+ * Checks whether the given user information is valid by verifying if there are empty strings 
+ * and calls isValidUsername and isValidPassword. 
+ * @param {string} username to validate.
+ * @param {string} password to validate.
+ * @returns true if valid, throws an exception otherwise
+ */
+function isValidUser(username, password){
+  try{
+    if (validator.isEmpty(username, default_empty_options) || 
+        validator.isEmpty(password, default_empty_options))
+        throw new {InvalidInputError}.InvalidInputError("All fields are required");
+
+    if (!isValidUsername(username))
+      throw new {InvalidInputError}.InvalidInputError("Invalid username. Please make sure the username doesn't contain special characters and has a correct amount of characters.");
+    
+    if (!isValidPassword(password))
+      throw new [InvalidInputError].InvalidInputError("Weak password.");
+    
+    return true;
+  } catch (err) {
+    throw err;
+  }
+}
+
+/**
  * Checks whether project name and only the project name is valid.
  * @param {String} projectName is the name of the project/ identification besides the the _id.
  * @returns true if the the input is valid, otherwise:
@@ -178,12 +203,6 @@ function isValidUsername(username) {
   //if username is not a string
   if (!validator.isString(username)) {
     console.log("Error! Username '" + username + "' needs to be a string.");
-    return false;
-  }
-
-  //if username is empty
-  if (validator.isEmpty(username)) {
-    console.log("Error! Username cannot be empty.");
     return false;
   }
 

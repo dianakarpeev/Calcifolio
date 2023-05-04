@@ -77,3 +77,30 @@ async function close() {
 /* -------------------------------------------------------------------------- */
 /*                            User CRUD Operations                            */
 /* -------------------------------------------------------------------------- */
+
+/* ------------------------------- Create User ------------------------------ */
+async function createUser(username, password){
+    try {
+        let username = username.toLocaleLowecase();
+        if (validateUtils.isValidUsername(username)){
+            if (validateUtils.isValidPassword(password)){
+                
+            }
+        }
+    } catch (error) {
+        
+    }
+}
+
+
+/* -------------------------------- Read User ------------------------------- */
+
+
+
+/* ------------------------------- Update User ------------------------------ */
+
+
+
+/* ------------------------------- Delete User ------------------------------ */
+
+
