@@ -9,6 +9,10 @@ import { Link } from "react-router-dom";
 import {DiAndroid} from "react-icons/di";
 import {VscAccount, VscPlay} from "react-icons/vsc";
 import { MdCalendarMonth , MdHome, MdBrush} from "react-icons/md";
+import { createTheme,ThemeProvider } from "@mui/material/styles";
+import { orange } from '@mui/material/colors'; 
+import { deepOrange } from '@mui/material/colors'; 
+import { hover } from "@testing-library/user-event/dist/hover";
 
 function MainLayout() {
   const footer={
@@ -21,12 +25,32 @@ function MainLayout() {
     fontWeight: "bold",
     backgroundColor: "white",
   }
-  const { toggleSidebar, collapseSidebar} = useProSidebar();
+  const test = {
+    menu: {
+      menuContent: '#f8fafc',
+      icon: '#f8fafc',
+      hover: {
+        backgroundColor: '#c5e4ff',
+        color: '#44596e',
+      },
+  }
+}
+  const {collapseSidebar} = useProSidebar();
    return   (
     
    <div style={{ display: 'flex', height: '100%', minHeight: '100vh'}}>
-   <Sidebar defaultCollapsed="true" collapsedWidth="4%" onMouseEnter={() =>collapseSidebar()} onMouseLeave={() =>collapseSidebar()}>
-     <Menu style = {{textAlign: "left"}}>
+   <Sidebar backgroundColor="#292524" defaultCollapsed="true" collapsedWidth="4%" onMouseEnter={() =>collapseSidebar()} onMouseLeave={() =>collapseSidebar()}>
+     <Menu style = {{textAlign: "left"}} menuItemStyles={{
+          button: {
+            color:  "#f8fafc",
+            '&hover': {
+              color:  "#292524"
+            
+            },
+          
+          },
+          
+        }}>
      <MenuItem icon={<MdHome/>} component={<Link to="/" label="Home" />}>Home</MenuItem>
     <MenuItem icon={<MdCalendarMonth/>} component={<Link to="/deadlines" label="Deadlines" />}>Deadlines</MenuItem>
     <MenuItem icon={<VscPlay/>} component={<Link to="/videos" label="Videos" />}>Videos</MenuItem>
@@ -37,6 +61,7 @@ function MainLayout() {
      </Menu>
    </Sidebar>
    <main style={{ padding: 10 }}> 
+   <Header></Header>
    <Outlet></Outlet>
    
    </main>
