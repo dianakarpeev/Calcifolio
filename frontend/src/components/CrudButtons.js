@@ -1,6 +1,6 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
-import { NavButton } from "./NavButton";
+import NavButton  from "./NavButton";
 import "./CrudButtons.css";
 
 
