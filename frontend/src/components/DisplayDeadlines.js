@@ -8,13 +8,14 @@ import Card from "components/Card.js";
 function DisplayDeadline(props){
 
   return(
-    <div>
       <Card>
-      <p>{props.heading}</p>
-    <p>Project Name: {props.deadline.projectName}</p>
-    <p>Date: {props.deadline.projectDueDay}</p>
+      <h1>{props.heading}</h1>
+      <p>Project Name:</p>
+      <p>{props.deadline.projectName}</p>
+      <br></br>
+      <p>Date:</p>
+      <p>{props.deadline.projectDueDay}</p>
       </Card>
-  </div>
   )
 }
 

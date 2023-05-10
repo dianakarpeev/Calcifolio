@@ -15,6 +15,8 @@ import { SingleVideo } from './SingleVideo';
 import { AddVideo } from './AddVideo';
 import { DeleteVideo } from './DeleteVideo';
 import { UpdateVideo } from './UpdateVideo';
+import { AllDeadlines } from './AllDeadlines';
+import { AddDeadline } from './AddDeadline';
 
 /**
  * Displays the navigation bar paths
@@ -27,6 +29,7 @@ function App() {
       <Route path="/" element={<MainLayout />}>
         <Route index element={<Home />} />
         <Route path="deadlines" element={<Deadlines />} />
+        <Route path="deadlines/create" element={<AddDeadline />} />
         <Route path="videos" element={<VideoLayout />} >
         <Route index element={<AllVideos />} />
         <Route path="newVideo" element={<AddVideo />} />
