@@ -8,7 +8,7 @@ import NavButton from "components/NavButton";
 import { Link } from "react-router-dom";
 import {DiAndroid} from "react-icons/di";
 import {VscAccount, VscPlay} from "react-icons/vsc";
-import { MdCalendarMonth , MdHome, MdBrush} from "react-icons/md";
+import { MdCalendarMonth , MdHome, MdBrush, MdContactPage} from "react-icons/md";
 import { createTheme,ThemeProvider } from "@mui/material/styles";
 import { orange } from '@mui/material/colors'; 
 import { deepOrange } from '@mui/material/colors'; 
@@ -39,13 +39,16 @@ function MainLayout() {
    return   (
     
    <div style={{ display: 'flex', height: '100%', minHeight: '100vh'}}>
-   <Sidebar backgroundColor="#292524" defaultCollapsed="true" collapsedWidth="4%" onMouseEnter={() =>collapseSidebar()} onMouseLeave={() =>collapseSidebar()}>
-     <Menu style = {{textAlign: "left"}} menuItemStyles={{
+   <Sidebar backgroundColor="#292524" defaultCollapsed="true" collapsedWidth="5%"  width="20%" margin="0%" padding="100%" onMouseEnter={() =>collapseSidebar()} onMouseLeave={() =>collapseSidebar()}>
+     <Menu style = {{ display: "flex", flexDirection :"row", textAlign: "center", justifyContent: "flex-start"}} menuItemStyles={{
           button: {
               backgroundColor: '#292524',
               color: '#f8fafc',
+              alignSelf : 'flex-start',
               '&:hover': {
                 backgroundColor: '#f8fafc',
+                color: '#292524'
+                
             
             },
           
@@ -58,7 +61,7 @@ function MainLayout() {
     <MenuItem icon={<MdBrush/>}component={<Link to="/posts" label="Posts" />}>Art</MenuItem> 
     <MenuItem icon={<VscAccount/>} component={<Link to="/about" label="About us" />}>About us</MenuItem>
     
-    <MenuItem component={<Link to="/contact" label="Contact" />}>Contact</MenuItem>
+    <MenuItem icon={<MdContactPage/>} component={<Link to="/contact" label="Contact" />}>Contact</MenuItem>
      </Menu>
    </Sidebar>
    <main style={{ padding: 10 }}> 
