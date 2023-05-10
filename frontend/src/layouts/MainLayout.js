@@ -42,9 +42,10 @@ function MainLayout() {
    <Sidebar backgroundColor="#292524" defaultCollapsed="true" collapsedWidth="4%" onMouseEnter={() =>collapseSidebar()} onMouseLeave={() =>collapseSidebar()}>
      <Menu style = {{textAlign: "left"}} menuItemStyles={{
           button: {
-            color:  "#f8fafc",
-            '&hover': {
-              color:  "#292524"
+              backgroundColor: '#292524',
+              color: '#f8fafc',
+              '&:hover': {
+                backgroundColor: '#f8fafc',
             
             },
           
