@@ -17,30 +17,9 @@ function Menu({ setDisplay }) {
   const menuItem6 = <DeleteSingleDeadline setDisplay={setDisplay} />;
 
   return (
-    <div className="d-flex justify-content-center flex-column">
-           <Button variant="contained" color="primary" onClick={() => setDisplay(menuItem2)}>
-        Show All Deadlines
-      </Button>
+    <div style={{minWidth:"90vw"}}>
+      <AllDeadlines/>
       <p />
-      <Button variant="contained" color="primary" onClick={() => setDisplay(menuItem1)}>
-        Get Single Deadline
-      </Button>
-      <p />
-      <Button variant="contained" color="primary"onClick={() => setDisplay(menuItem3)}>
-        Create Deadline
-      </Button>
-      <p />
-      <Button variant="contained" color="primary" onClick={() => setDisplay(menuItem4)}>
-        Update Deadline By Name
-      </Button>
-      <p />
-      <Button variant="contained" color="primary"onClick={() => setDisplay(menuItem5)}>
-        Update Deadline By Date
-      </Button>
-      <p />
-      <Button variant="contained" color="primary" onClick={() => setDisplay(menuItem6)}>
-        Delete Deadline
-      </Button>
     </div>
   );
 }

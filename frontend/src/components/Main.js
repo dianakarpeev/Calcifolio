@@ -13,7 +13,7 @@ function Main() {
 
   return (
     <div>
-      <TwoPanes leftPane={leftPane} rightPane={rightPane} />{" "}
+    <Menu />
     </div>
   );
 }

@@ -1,4 +1,6 @@
-import "components/Card.css"
+import { Button } from "@mui/material";
+import  Menu from "./Menu.js"
+import "./Card.css"
 /**
  * Manages data and state presentation
  * @param {object} props children
@@ -7,7 +9,11 @@ import "components/Card.css"
 function Card({ children}) {
     return (    
        <div className="card">   
-          {children}   
+          {children}
+          <div style={{display: "flex", flexDirection: "row", justifyContent: "center"}}>
+           <Button>Edit</Button>
+           <Button>Delete</Button>
+           </div>
        </div>  
     );
   }
