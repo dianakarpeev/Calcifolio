@@ -96,9 +96,32 @@ async function createUser(username, password){
     }
 }
 
-
 /* -------------------------------- Read User ------------------------------- */
+/**
+ * Finds the user corresponding to the username in the database.
+ * @param {string} username is the name of user to find.
+ * @returns the corresponding object representing the searched user.
+ *
+ * throws {InvalidInputError} if the username is empty or is not written in the correct username format.
+ * throws {DatabaseError} if the problem is related to the database connectivity and its interactions.
+ * throws Exception if the project comes to contact with unknown errors that are unexpected instead of 'swallowing' other types.
+ */
+async function getSingleUser(username){
+  try {
+    const name = username.toLocaleLowecase();
+    if (validateUtils.isValidUsername(name){
+      let result = await userCollection.findOne({username: name});
 
+      if (result == null || result == undefined)
+        throw new InvalidInputError("Username does not exist in the database.");
+
+      return result;
+    }
+  } catch (error) {
+    logger.error(error);
+    throw error;
+  }
+}
 
 
 /* ------------------------------- Update User ------------------------------ */
