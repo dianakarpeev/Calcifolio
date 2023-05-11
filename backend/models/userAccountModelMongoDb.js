@@ -79,16 +79,20 @@ async function close() {
 /* -------------------------------------------------------------------------- */
 
 /* ------------------------------- Create User ------------------------------ */
+//TODO: Make password storage encrypted
 async function createUser(username, password){
     try {
         let username = username.toLocaleLowecase();
         if (validateUtils.isValidUsername(username)){
             if (validateUtils.isValidPassword(password)){
-                
+                const user = {username: username, password: password};
+                await userCollection.insertOne(user);
+                return true;
             }
         }
     } catch (error) {
-        
+        logger.error(error);
+        throw error;
     }
 }
 
