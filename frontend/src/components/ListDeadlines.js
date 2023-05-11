@@ -8,7 +8,7 @@ import { DisplayDeadline } from "./DisplayDeadlines";
 function ListDeadlines({ deadlines }) {
   return (
     <div>
-      <ul>
+      <ul style={{display:"flex", flexDirection:"row", flexWrap:"wrap", width:"90vw"}}>
         {deadlines.map((deadline) => (
           <div key={deadline._id}>
             <DisplayDeadline deadline={deadline} />
