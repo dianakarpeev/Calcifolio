@@ -8,6 +8,13 @@ const { InvalidInputError } = require("./InvalidInputError");
 const { DatabaseError } = require("./DatabaseError");
 const logger = require('../logger');
 
+const express = require("express");
+const router = express.Router();
+const routeRoot = "/users";
+const validator = require('validator');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
 let client;
 let userCollection;
 
@@ -74,19 +81,42 @@ async function close() {
     }
   }
 
+  async function checkCredentials(username, passwordToCheck){
+    try {
+      const result = await userCollection.findOne({username: username, password: passwordToCheck});
+
+      if (result == null || result == undefined)
+        throw new InvalidInputError("Cannot find information for account of " + username + " in the database. Cannot authenticate");
+
+      const isSame = await bcrypt.compare(password, result.password);
+      
+      if (isSame){
+        console.log("Successfully authenticated user.");
+        return true;
+      } else {
+        console.log("Incorrect password. Cannot authenticate user " + username);
+        return false;
+      }
+    } catch (error){
+      logger.error(error);
+      throw error;
+    }
+  }
+
 /* -------------------------------------------------------------------------- */
 /*                            User CRUD Operations                            */
 /* -------------------------------------------------------------------------- */
 
 /* ------------------------------- Create User ------------------------------ */
-//TODO: Make password storage encrypted
 async function createUser(username, password){
     try {
         let username = username.toLocaleLowecase();
         if (validateUtils.isValidUsername(username)){
             if (validateUtils.isValidPassword(password)){
-                const user = {username: username, password: password};
+                const hashPassword = await bcrypt.hash(password, saltRounds);
+                const user = {username: username, password: hashPassword};
                 await userCollection.insertOne(user);
+                logger.info("Successful user registration");
                 return true;
             }
         }
@@ -115,6 +145,7 @@ async function getSingleUser(username){
       if (result == null || result == undefined)
         throw new InvalidInputError("Username does not exist in the database.");
 
+      logger.info("Successfuly reading of user account");
       return result;
     }
   } catch (error) {
@@ -134,6 +165,7 @@ async function getAllUsers(){
   try {
     const collectionCursor = await userCollection.find({});
     const collectionArray = await collectionCursor.toArray();
+    logger.info("Successfuly read all user accounts.");
     return collectionArray;
   } catch (error) {
     logger.error(error);
@@ -185,6 +217,10 @@ async function updateUsername(oldUsername, newUsername, password){
  * @param {string} username of user account to delete.
  * @param {string} userPassword password of user account to delete. 
  * @returns deleted user.
+ * 
+ * throws {InvalidInputError}  the username/password is empty or wasn't found in the database.
+ * throws {DatabaseError} if the problem is related to the database connectivity and its interactions.
+ * throws Exception if the user account comes to contact with unknown errors that are unexpected instead of 'swallowing' other types.
  */
 async function deleteUser(username, userPassword){
   try {
