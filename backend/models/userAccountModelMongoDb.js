@@ -109,7 +109,7 @@ async function createUser(username, password){
 async function getSingleUser(username){
   try {
     const name = username.toLocaleLowecase();
-    if (validateUtils.isValidUsername(name){
+    if (validateUtils.isValidUsername(name)){
       let result = await userCollection.findOne({username: name});
 
       if (result == null || result == undefined)
@@ -123,9 +123,60 @@ async function getSingleUser(username){
   }
 }
 
+/**
+ * Creates an array format of userCollection objects
+ * @returns an array format of userCollection objects
+ * 
+ * throws {DatabaseError} if the problem is related to the database connectivity and its interactions.
+ * throws Exception if the project comes to contact with unknown errors that are unexpected instead of 'swallowing' other types.
+ */
+async function getAllUsers(){
+  try {
+    const collectionCursor = await userCollection.find({});
+    const collectionArray = await collectionCursor.toArray();
+    return collectionArray;
+  } catch (error) {
+    logger.error(error);
+    throw error;
+  }
+}
 
 /* ------------------------------- Update User ------------------------------ */
+/**
+ * Updates a singular user account's username.
+ * @param {string} oldUsername username of user account to update.
+ * @param {string} newUsername name to change current username of account to.
+ * @param {string} password password of the user acount to update.
+ * @returns the updated user account where the username got changed.
+ * 
+ * throws {InvalidInputError} if the username/password is empty or the username/password is not written in the correct format "YYYY-MM-DD".
+ * throws {DatabaseError} if the problem is related to the database connectivity and its interactions.
+ * throws Exception if the user comes to contact with unknown errors that are unexpected instead of 'swallowing' other types.
+ */
+async function updateUsername(oldUsername, newUsername, password){
+  try {
+    const user = oldUsername.toLocaleLowecase();
+    const newName = newUsername.toLocaleLowecase();
 
+    if (validateUtils.isValidUserName(oldUsername) && validateUtils.isValidPassword(password)){
+      if (validateUtils.isValidUsername(user)){
+        let result = await userCollection.updateOne(
+          {username: user, password: password},
+          {$set: {username: newName}}
+        );
+
+        if (result == null || result.modifiedCount == 0)
+          throw new InvalidInputError("Name " + user + " does not exist in the database or incorrect password was provided.");
+
+        logger.info(result);
+        return result;
+      }
+    }
+  } catch (error) {
+    logger.error(err);
+    throw error;
+  }
+}
 
 
 /* ------------------------------- Delete User ------------------------------ */
