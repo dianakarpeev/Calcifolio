@@ -13,9 +13,7 @@ function DisplayDeadline(props){
       <h1>{props.heading}</h1>
       <p>Project Name:</p>
       <p>{props.deadline.projectName}</p>
-      <br></br>
-      <p>Date:</p>
-      <p>{props.deadline.projectDueDay}</p>
+      <p>Date: {props.deadline.projectDueDay}</p>
       <button onClick={()=>toggleShow(!show)}> {show ? "hide":"more"}</button>
       {show && <p>{props.deadline.description}</p>}
       </Card>
