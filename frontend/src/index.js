@@ -6,13 +6,16 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ErrorBoundary from "./components/ErrorBoundary";
+import { ProSidebarProvider } from "react-pro-sidebar";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
     <ErrorBoundary>
+      <ProSidebarProvider>
     <App />
+    </ProSidebarProvider>
     </ErrorBoundary>
     </BrowserRouter>
   </React.StrictMode>

@@ -9,7 +9,6 @@ function VideoLayout() {
             <Header />
             <CrudButtons/>
             <Outlet />
-            <Footer />	
 	
           </div>
 }  
