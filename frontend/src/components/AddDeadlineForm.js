@@ -31,6 +31,7 @@ function AddDeadlineForm(props) {
   const handleSubmit = async (event) => {
     event.preventDefault(); // prevent page reload
 
+    
     const request = {
       method: "POST",
       body: JSON.stringify({

@@ -9,6 +9,7 @@ function TwoPanes({ leftPane, rightPane }) {
       <Row>
         <Col xs={10}>{leftPane}</Col>
         <Col xs={2}>
+          <h3 style={{textAlign:"left"}}>Last added:</h3>
         {rightPane}
         </Col>
       </Row>

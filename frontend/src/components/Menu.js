@@ -18,7 +18,7 @@ function Menu({ setDisplay }) {
 
   return (
     <div style={{minWidth:"90vw"}}>
-      <AllDeadlines setDisplay={setDisplay}/>
+      <AllDeadlines/>
       <p />
     </div>
   );
