@@ -7,12 +7,12 @@ jest.setTimeout(5000);
 var mongod;
 
 const eventDatabase = [
-  { projectName: "Project A", projectDueDay: "2023-05-02" },
-  { projectName: "Project B", projectDueDay: "2023-05-12" },
-  { projectName: "Project C", projectDueDay: "2023-11-07" },
-  { projectName: "Project D", projectDueDay: "2023-05-22" },
-  { projectName: "Project E", projectDueDay: "2023-09-18" },
-  { projectName: "Project F", projectDueDay: "2023-12-30" },
+  { projectName: "Project A", projectDueDay: "2023-05-02", description: "Project A is the backend"},
+  { projectName: "Project B", projectDueDay: "2023-05-12", description: "Project B is the presentation slides"},
+  { projectName: "Project C", projectDueDay: "2023-11-07", description: "Project c is the frontend" },
+  { projectName: "Project D", projectDueDay: "2023-05-22", description: "Project D is really urgent" },
+  { projectName: "Project E", projectDueDay: "2023-09-18", description: "Project E is bob" },
+  { projectName: "Project F", projectDueDay: "2023-12-30"},
 ];
 
 const generateEventDeadlineData = () =>
@@ -42,8 +42,8 @@ afterEach(async () => {
 });
 
 test("Can add EventDeadline to DB", async () => {
-  const { projectName, projectDueDay } = generateEventDeadlineData();
-  await model.createProjectDeadline(projectName, projectDueDay);
+  const { projectName, projectDueDay,description } = generateEventDeadlineData();
+  await model.createProjectDeadline(projectName, projectDueDay,description);
   const cursor = (await model.getCollection()).find();
   const results = await cursor.toArray();
   expect(Array.isArray(results)).toBe(true);
@@ -54,14 +54,16 @@ test("Can add EventDeadline to DB", async () => {
   expect(
     results[0].projectDueDay.toLowerCase() == projectDueDay.toLowerCase()
   ).toBe(true);
+  
 });
 test("Can add 2 EventDeadline to DB", async () => {
   projectName = "Project A";
   projectName1 = "Project B";
   projectDueDay = "2023-05-02";
   projectDueDay1 = "2023-05-12";
+  description1="Project has description";
   await model.createProjectDeadline(projectName, projectDueDay);
-  await model.createProjectDeadline(projectName1, projectDueDay1);
+  await model.createProjectDeadline(projectName1, projectDueDay1,description1);
   const cursor = (await model.getCollection()).find();
   const results = await cursor.toArray();
   expect(Array.isArray(results)).toBe(true);
@@ -70,14 +72,17 @@ test("Can add 2 EventDeadline to DB", async () => {
     results[0].projectName.toLowerCase() == projectName.toLowerCase()
   ).toBe(true);
   expect(
-    results[0].projectDueDay.toLowerCase() == projectDueDay.toLowerCase()
+    results[0].projectDueDay.toLowerCase() == projectDueDay.toLocaleLowerCase()
   ).toBe(true);
+  expect(results[0].description).toBe(null);
+
   expect(
     results[1].projectName.toLowerCase() == projectName1.toLocaleLowerCase()
   ).toBe(true);
   expect(
     results[1].projectDueDay.toLowerCase() == projectDueDay1.toLocaleLowerCase()
   ).toBe(true);
+  expect(results[1].description.toLowerCase() == description1.toLocaleLowerCase()).toBe(true);
 });
 
 test("Should catch invalid empty name when Creating new deadline", async () => {

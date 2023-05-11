@@ -15,6 +15,7 @@ function DisplayDeadline(props){
       <br></br>
       <p>Date:</p>
       <p>{props.deadline.projectDueDay}</p>
+      <button onClick={<p>{props.deadline.description}</p>}>more</button>
       </Card>
   )
 }
