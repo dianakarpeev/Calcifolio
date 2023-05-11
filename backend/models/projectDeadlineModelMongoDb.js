@@ -72,6 +72,9 @@ async function initialize(db_name, flag, url) {
 async function createProjectDeadline(projectName, projectDueDay,description) {
   try {
     let name = projectName.toLocaleLowerCase();
+    if(description==null){
+      description="no info provided";
+    }
     if (validateUtils.isValid(name, projectDueDay)) {
       dateCollection.insertOne({
         projectName: name,

@@ -1,7 +1,7 @@
 const model = require("../models/projectDeadlineModelMongoDb.js");
 const dbName = "dbTest";
 const { MongoMemoryServer } = require("mongodb-memory-server");
-const { InvalidInputError } = require("../models/InvalidInputError");
+const { InvalidInputError } = require("../models/InvalidInputError.js");
 require("dotenv").config();
 jest.setTimeout(5000);
 var mongod;
@@ -11,8 +11,8 @@ const eventDatabase = [
   { projectName: "Project B", projectDueDay: "2023-05-12", description: "Project B is the presentation slides"},
   { projectName: "Project C", projectDueDay: "2023-11-07", description: "Project c is the frontend" },
   { projectName: "Project D", projectDueDay: "2023-05-22", description: "Project D is really urgent" },
-  { projectName: "Project E", projectDueDay: "2023-09-18", description: "Project E is bob" },
-  { projectName: "Project F", projectDueDay: "2023-12-30"},
+  { projectName: "Project E", projectDueDay: "2023-09-18", description: "no info provided" },
+  { projectName: "Project F", projectDueDay: "2023-12-30", description: "no info provided"},
 ];
 
 const generateEventDeadlineData = () =>
@@ -74,7 +74,7 @@ test("Can add 2 EventDeadline to DB", async () => {
   expect(
     results[0].projectDueDay.toLowerCase() == projectDueDay.toLocaleLowerCase()
   ).toBe(true);
-  expect(results[0].description).toBe(null);
+  expect(results[0].description =="no info provided").toBe(true);
 
   expect(
     results[1].projectName.toLowerCase() == projectName1.toLocaleLowerCase()
@@ -116,10 +116,10 @@ test("Should catch invalid date format when Creating new deadline", async () => 
 });
 
 test("Finds Event Deadline by name ", async () => {
-  const { projectName, projectDueDay } = generateEventDeadlineData();
+  const { projectName, projectDueDay,description } = generateEventDeadlineData();
   projectName1 = "HelloWold";
-  await model.createProjectDeadline(projectName, projectDueDay);
-  await model.createProjectDeadline(projectName1, projectDueDay);
+  await model.createProjectDeadline(projectName, projectDueDay,description);
+  await model.createProjectDeadline(projectName1, projectDueDay,description);
   const result = await model.getSingleEvent(projectName1);
   expect(
     result.projectName.toLowerCase() == projectName1.toLocaleLowerCase()
