@@ -9,7 +9,6 @@ import UserError from "../pages/UserError";
 import Deadlines from "../pages/Deadlines";
 import Posts from 'pages/Posts';
 import Videos from 'pages/Videos';
-import { VideoLayout } from 'layouts/VideoLayout';
 import { AllVideos } from './AllVideos';
 import { SingleVideo } from './SingleVideo';
 import { AddVideo } from './AddVideo';
@@ -44,7 +43,7 @@ function App() {
         <Route path="deadlines/create" element={ <div>
       <TwoPanes leftPane={leftPane} rightPane={rightPane} />{"      "}
     </div>  } />
-        <Route path="videos" element={<VideoLayout />} >
+        <Route path="videos" element={<Videos />} >
         <Route index element={<AllVideos />} />
         <Route path="newVideo" element={<AddVideo />} />
         <Route path="delete" element={<DeleteVideo />} />

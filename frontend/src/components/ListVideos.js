@@ -1,14 +1,14 @@
+import {DisplayVideo} from './DisplayVideo'
 function ListVideos({ videos }) {
 
 
     return (
         <div>
-            <h1> All Videos </h1>
         <ul>
             {videos.map((video) => (
-            <li key={video._id}>
-                {video.title} with length {video.length}
-                </li>
+            <div>
+                <DisplayVideo video = {video}/>
+                </div>
                 ))}
         </ul>
             
