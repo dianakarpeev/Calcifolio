@@ -8,7 +8,7 @@ function AddDeadline({ setDisplay }) {
   useEffect(() => {
     if (added) {
       // Only update display when a deadline has been added
-        setDisplay(<DisplayDeadline deadline={added} heading="The added deadline is" />);
+        setDisplay(<DisplayDeadline deadline={added} />);
      
     }
   }, [added, setDisplay]);

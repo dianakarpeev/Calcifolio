@@ -69,15 +69,19 @@ async function initialize(db_name, flag, url) {
  * throws {DatabaseError} if the problem is related to the database connectivity and its interactions.
  * throws Exception if the project comes to contact with unknown errors that are unexpected instead of 'swallowing' other types.
  */
-async function createProjectDeadline(projectName, projectDueDay) {
+async function createProjectDeadline(projectName, projectDueDay,description) {
   try {
     let name = projectName.toLocaleLowerCase();
+    if(description==null){
+      description="no info provided";
+    }
     if (validateUtils.isValid(name, projectDueDay)) {
       dateCollection.insertOne({
         projectName: name,
         projectDueDay: projectDueDay,
+        description: description,
       });
-      return {projectName:name, projectDueDay:projectDueDay};
+      return {projectName:name, projectDueDay:projectDueDay, description: description};
     }
   } catch (err) {
     //--------------- Error handling ---------------

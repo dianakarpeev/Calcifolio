@@ -5,12 +5,15 @@ import Col from "react-bootstrap/Col";
 /** Component that displays one pane on the left and another on the right. */
 function TwoPanes({ leftPane, rightPane }) {
   return (
-    <Container>
+    <div style={{ display: "block", width:"auto", padding: 30 }}>
       <Row>
-        <Col sm={2}>{leftPane}</Col>
-        <Col sm={8}>{rightPane}</Col>
+        <Col xs={10}>{leftPane}</Col>
+        <Col xs={2}>
+          <h3 style={{textAlign:"left"}}>Last added:</h3>
+        {rightPane}
+        </Col>
       </Row>
-    </Container>
+    </div>
   );
 }
 export default TwoPanes;
