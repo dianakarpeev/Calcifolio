@@ -44,6 +44,31 @@ function isValid(projectName, projectDueDay) {
 }
 
 /**
+ * Checks whether the given user information is valid by verifying if there are empty strings 
+ * and calls isValidUsername and isValidPassword. 
+ * @param {string} username to validate.
+ * @param {string} password to validate.
+ * @returns true if valid, throws an exception otherwise
+ */
+function isValidUser(username, password){
+  try{
+    if (validator.isEmpty(username, default_empty_options) || 
+        validator.isEmpty(password, default_empty_options))
+        throw new {InvalidInputError}.InvalidInputError("All fields are required");
+
+    if (!isValidUsername(username))
+      throw new {InvalidInputError}.InvalidInputError("Invalid username. Please make sure the username doesn't contain special characters and has a correct amount of characters.");
+    
+    if (!isValidPassword(password))
+      throw new [InvalidInputError].InvalidInputError("Weak password.");
+    
+    return true;
+  } catch (err) {
+    throw err;
+  }
+}
+
+/**
  * Checks whether project name and only the project name is valid.
  * @param {String} projectName is the name of the project/ identification besides the the _id.
  * @returns true if the the input is valid, otherwise:
@@ -135,7 +160,94 @@ function nameIsValid(name) {
   return true;
 }
 
+/**
+ * Checks if password contains:
+ * - 8 characters
+ * - 1 uppercase letter
+ * - 1 lowercase letter
+ * - 1 number
+ * - 1 symbol
+ * @param {string} password to validate
+ * @returns true if valid, false other
+ */
+function isValidPassword(password) {
+  if (!validator.isStrongPassword(password)) {
+    console.log(
+      "Error! Password '" +
+        password +
+        "' is invalid. Please input a valid password that contains:"
+    );
+    console.log("- 8 characters");
+    console.log("- 1 uppercase");
+    console.log("- 1 lowercase");
+    console.log("- 1 number");
+    console.log("- 1 symbol");
+    return false;
+  }
+  return true;
+}
 
+/**
+ * Checks if username is:
+ * - A string
+ * - Is empty
+ * - Contains at least 3 characters
+ * - Contains less than 10 characters
+ * - Contains special characters
+ * @param {string} username to validate
+ * @returns true if valid, false otherwise
+ */
+function isValidUsername(username) {
+  const specialChars = /[`!@#$%^&*()_\+=\[\]{};':"\\|,.<>\/?~ ]/;
+  const minAmountChars = 3;
+  const maxAmountChars = 11;
+
+  //if username is not a string
+  if (!validator.isString(username)) {
+    console.log("Error! Username '" + username + "' needs to be a string.");
+    return false;
+  }
+
+  //if username is under 3 characters
+  if (username.length < minAmountChars) {
+    console.log(
+      "Error! Username '" + username + "' cannot be under 3 characters long."
+    );
+    return false;
+  }
+
+  //if username is above 10 characters
+  if (username.length > maxAmountChars) {
+    console.log(
+      "Error! Username '" +
+        username +
+        "' is invalid due to having more characters than the maximum limit of 10."
+    );
+    return false;
+  }
+
+  //if username contains special characters
+  if (specialChars.test(username)) {
+    console.log(
+      "Error! Username '" + username + "' cannot contain special characters."
+    );
+    return false;
+  }
+
+  //username is valid
+  return true;
+}
+
+module.exports = {
+  isValid,
+  isValidName,
+  isValidDate,
+  nameIsValid,
+  urlIsValid,
+  dateIsValid,
+  isValidPassword,
+  isValidUsername
+};
 
 //VIDEO VALIDATORS
 
@@ -163,14 +275,5 @@ function validTitle(title) {
 return true;
 }
 
-
-
-
-
-
-
-
-
-
-
 module.exports = { isValid, isValidName, isValidDate, nameIsValid, urlIsValid, dateIsValid, validTitle, isValid2 };
+
