@@ -20,9 +20,6 @@ function Menu({ setDisplay }) {
     <div style={{minWidth:"90vw"}}>
       <AllDeadlines setDisplay={setDisplay}/>
       <p />
-      <Button variant="contained" color="primary"onClick={() => setDisplay(menuItem3)}>
-        Create Deadline
-      </Button>
     </div>
   );
 }
