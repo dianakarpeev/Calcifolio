@@ -17,19 +17,33 @@ import { DeleteVideo } from './DeleteVideo';
 import { UpdateVideo } from './UpdateVideo';
 import { AllDeadlines } from './AllDeadlines';
 import { AddDeadline } from './AddDeadline';
+import { useState } from "react";
+
+import TwoPanes from "./TwoPanes";
 
 /**
  * Displays the navigation bar paths
  * @returns routing of different endpoints
  */
 function App() {
+  
+  const defaultRightPane = <p></p>;
+  const [rightPane, setRightPane] = useState(defaultRightPane);
+  const defaultLeftPane = <AddDeadline setDisplay={setRightPane} />;
+  const [leftPane] = useState(defaultLeftPane);
+    <div>
+    
+    </div>
+
   return (
     <div className="App">
       <Routes>
       <Route path="/" element={<MainLayout />}>
         <Route index element={<Home />} />
         <Route path="deadlines" element={<Deadlines />} />
-        <Route path="deadlines/create" element={<AddDeadline />} />
+        <Route path="deadlines/create" element={ <div>
+      <TwoPanes leftPane={leftPane} rightPane={rightPane} />{"      "}
+    </div>  } />
         <Route path="videos" element={<VideoLayout />} >
         <Route index element={<AllVideos />} />
         <Route path="newVideo" element={<AddVideo />} />

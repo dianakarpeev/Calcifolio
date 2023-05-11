@@ -17,10 +17,6 @@ function SingleVideo(props) {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-
-       
-            
         
         const response = await fetch(`http://localhost:1339/videos/${titleRef.current.value}`);
         const result = await response.json();
