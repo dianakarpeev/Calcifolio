@@ -180,5 +180,30 @@ async function updateUsername(oldUsername, newUsername, password){
 
 
 /* ------------------------------- Delete User ------------------------------ */
+/**
+ * Deletes a single user profile.
+ * @param {string} username of user account to delete.
+ * @param {string} userPassword password of user account to delete. 
+ * @returns deleted user.
+ */
+async function deleteUser(username, userPassword){
+  try {
+    let name = username.toLocaleLowecase();
+    let password = userPassword.toLocaleLowecase();
 
+    if (validateUtils.isValidUsername(name) && validateUtils.isValidPassword(password)){
+      let result = await userCollection.deleteOne({
+        username: name,
+        password: password
+      });
+
+      return result;
+    };
+
+    throw new InvalidInputError("Username " + name + " or password was not found in the database.");
+  } catch (error) {
+    logger.error(error);
+    throw error;
+  }
+}
 
