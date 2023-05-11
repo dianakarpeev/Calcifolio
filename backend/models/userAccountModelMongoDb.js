@@ -81,23 +81,58 @@ async function close() {
     }
   }
 
-  async function checkCredentials(username, passwordToCheck){
+  /**
+   * Checks if given password matches the one in the database.
+   * @param {string} username of the account to check the password of
+   * @param {string} passwordToCheck password to validate with database
+   * @returns true if passwords match, false otherwise
+   * 
+  * throws {InvalidInputError} if the username is empty or is not written in the correct username format.
+  * throws {DatabaseError} if the problem is related to the database connectivity and its interactions.
+  * throws Exception if the project comes to contact with unknown errors that are unexpected instead of 'swallowing' other types.
+  */
+  async function checkCredentials(name, passwordToCheck){
     try {
-      const result = await userCollection.findOne({username: username, password: passwordToCheck});
-
-      if (result == null || result == undefined)
-        throw new InvalidInputError("Cannot find information for account of " + username + " in the database. Cannot authenticate");
-
-      const isSame = await bcrypt.compare(password, result.password);
+      const username = name.toLocaleLowecase();
       
-      if (isSame){
-        console.log("Successfully authenticated user.");
-        return true;
-      } else {
-        console.log("Incorrect password. Cannot authenticate user " + username);
-        return false;
-      }
+      if (validateUtils.isValidUsername(username) && validateUtils.isValidPassword(password)){
+        const result = await userCollection.findOne({username: username, password: passwordToCheck});
+
+        if (result == null || result == undefined)
+          throw new InvalidInputError("Cannot find information for account of " + username + " in the database. Cannot authenticate");
+
+        const isSame = await bcrypt.compare(password, result.password);
+        
+        if (isSame){
+          console.log("Successfully authenticated user.");
+          return true;
+        } else {
+          console.log("Incorrect password. Cannot authenticate user " + username);
+          return false;
+        }
+      } else 
+        throw new InvalidInputError("Username " + username + " or password is invalid.");
     } catch (error){
+      logger.error(error);
+      throw error;
+    }
+  }
+
+  /**
+   * Checks in the database if a user account with that username already exists.
+   * @param {string} usernameToCheck username to check duplicates for
+   * @returns false if no duplicates were found, true otherwise
+   */
+  async function hasDuplicates(usernameToCheck){
+    try {
+      usernameToCheck = usernameToCheck.toLocaleLowecase();
+      let result = await userCollection.findOne({username: usernameToCheck});
+    
+      if (result == null || !validator.compare(result.username, usernameToCheck))
+        return false;
+      else 
+        return true;
+    } catch (error) {
       logger.error(error);
       throw error;
     }
@@ -108,11 +143,21 @@ async function close() {
 /* -------------------------------------------------------------------------- */
 
 /* ------------------------------- Create User ------------------------------ */
+/**
+ * Creates a new user account in the database. Hashes the password before storing it.
+ * @param {string} username of the new user to create
+ * @param {string} password of the new user to create.
+ * @returns true if successful, throws an error otherwise
+ * 
+ * throws {InvalidInputError} if the username is empty or is not written in the correct username format.
+ * throws {DatabaseError} if the problem is related to the database connectivity and its interactions.
+ * throws Exception if the project comes to contact with unknown errors that are unexpected instead of 'swallowing' other types.
+ */
 async function createUser(username, password){
     try {
         let username = username.toLocaleLowecase();
         if (validateUtils.isValidUsername(username)){
-            if (validateUtils.isValidPassword(password)){
+            if (validateUtils.isValidPassword(password) && !hasDuplicates(password)){
                 const hashPassword = await bcrypt.hash(password, saltRounds);
                 const user = {username: username, password: hashPassword};
                 await userCollection.insertOne(user);
@@ -190,7 +235,7 @@ async function updateUsername(oldUsername, newUsername, password){
     const user = oldUsername.toLocaleLowecase();
     const newName = newUsername.toLocaleLowecase();
 
-    if (validateUtils.isValidUserName(oldUsername) && validateUtils.isValidPassword(password)){
+    if (await checkCredentials(oldUsername, password)){
       if (validateUtils.isValidUsername(user)){
         let result = await userCollection.updateOne(
           {username: user, password: password},
@@ -205,12 +250,35 @@ async function updateUsername(oldUsername, newUsername, password){
       }
     }
   } catch (error) {
-    logger.error(err);
+    logger.error(error);
     throw error;
   }
 }
 
+async function updatePassword(username, oldPassword, newPassword){
+  try {
+    const user = username.toLocaleLowecase();
 
+    if (validateUtils.isValidPassword(newPassword)){
+      if (await checkCredentials(username, password)){
+        let result = await userCollection.updateOne(
+          {username: user},
+          {$set: {password: newPassword}}
+        );
+
+        if (result == null || result.modifiedCount == 0)
+          throw new InvalidInputError("Name " + user + " does not exist in the database.");
+        
+        logger.info(result);
+        return result;
+      }
+    } else
+      throw new InvalidInputError("New password is invalid due to incorrect format.");
+  } catch (error) {
+    logger.error(error);
+    throw error;
+  }
+}
 /* ------------------------------- Delete User ------------------------------ */
 /**
  * Deletes a single user profile.
@@ -227,7 +295,7 @@ async function deleteUser(username, userPassword){
     let name = username.toLocaleLowecase();
     let password = userPassword.toLocaleLowecase();
 
-    if (validateUtils.isValidUsername(name) && validateUtils.isValidPassword(password)){
+    if (await checkCredentials(username, password)){
       let result = await userCollection.deleteOne({
         username: name,
         password: password
