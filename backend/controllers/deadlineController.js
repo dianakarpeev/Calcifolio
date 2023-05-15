@@ -12,7 +12,7 @@ const validator = require("validator");
 router.post("/deadlines", handleCreateProjectDeadline);
 /**
  * Handles the new creation of a new event Deadline in the database.
- * @param {object} req  Expect body parameters of projectName and projectDueDay.
+ * @param {object} req  Expect body parameters of projectName, projectDueDay and description.
  * @param {object} res project deadline was created message (200 success).
  *
  * throws {InvalidInputError} if the project name is empty or the deadline date is not written in the correct format "YYYY-MM-DD". 400
@@ -24,8 +24,9 @@ async function handleCreateProjectDeadline(req, res) {
   try {
     let projectName = req.body.projectName;
     let projectDueDay = req.body.projectDueDay;
+    let description = req.body.description;
 
-    let result = await model.createProjectDeadline(projectName, projectDueDay); //this should throw an error when invalid
+    let result = await model.createProjectDeadline(projectName, projectDueDay,description); //this should throw an error when invalid
     res.status(200);
     res.send(result);
   } catch (err) {

@@ -24,17 +24,20 @@ const button={
 function AddDeadlineForm(props) {
   const projectNameRef = useRef(null);
   const projectDueDayRef = useRef(null);
+  const descriptionRef= useRef(null);
 
   const navigate = useNavigate();
   /** Handler method that displays the name entered in the form in an alert */
   const handleSubmit = async (event) => {
     event.preventDefault(); // prevent page reload
 
+    
     const request = {
       method: "POST",
       body: JSON.stringify({
         projectName: projectNameRef.current.value,
         projectDueDay: projectDueDayRef.current.value,
+        description: descriptionRef.current.value,
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -72,10 +75,20 @@ function AddDeadlineForm(props) {
             Due date
           </label>
           <input
-            type="text"
-            placeholder="YYYY-MM-DD..."
+            type="date"
+            min="2023-01-01"
             ref={projectDueDayRef}
             required
+          />
+          <br />
+            <label style={label} htmlFor="name">
+            Description
+          </label>
+          <input
+            type="text"
+            placeholder="Description..."
+            ref={descriptionRef}
+            optional
           />
         </div>
         <button style={button} type="submit">Create</button>
