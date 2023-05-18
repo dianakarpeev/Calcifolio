@@ -6,9 +6,8 @@ function DisplayVideo(props) {
     return (
         <Card image={props.video.image}>
         <h1>{props.heading}</h1>
-        <h2>Video title: {props.video.title}</h2>
-        <h2>Video length: {props.video.length}</h2>
-        <Video url='https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4'/>
+        <h2>{props.video.title}</h2>
+        <Video url= {props.video.url}/>
         </Card>
     );
 }

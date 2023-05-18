@@ -1,15 +1,9 @@
-// 'Big Buck Bunny' licensed under CC 3.0 by the Blender foundation.
-// Hosted by archive.org.
-
-
+import ReactPlayer from 'react-player';
 function Video(props) {
 
 const src = props.url;
   return (
-    <video controls width="100%">
-      <source src={src} type="video/mp4" />
-      Sorry, your browser doesn't support embedded videos.
-    </video>
+    <ReactPlayer width="100%" height="100%" controls="true" url={src}></ReactPlayer>
   );
 };
 

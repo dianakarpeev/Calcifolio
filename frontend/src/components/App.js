@@ -43,13 +43,11 @@ function App() {
         <Route path="deadlines/create" element={ <div>
       <TwoPanes leftPane={leftPane} rightPane={rightPane} />{"      "}
     </div>  } />
-        <Route path="videos" element={<Videos />} >
-        <Route index element={<AllVideos />} />
-        <Route path="newVideo" element={<AddVideo />} />
+    <Route path="videos" element={<AllVideos />} />
+    <Route path="videos/new" element={<AddVideo />} />
         <Route path="delete" element={<DeleteVideo />} />
         <Route path="video" element={<SingleVideo />} />
         <Route path="update" element={<UpdateVideo />} />
-      </Route>
         <Route path="posts" element={<Posts />} />
         <Route path="about" element={<About />} />
         <Route path="usererror" element={<UserError />} />

@@ -17,10 +17,10 @@ function AllVideos() {
 
     return (
 
-        <>
+        <div style={{textAlign: "center"}}>
         <h1> All Videos </h1>
         <ListVideos videos={videos} />
-        </>
+        </div>
     )
 }
 

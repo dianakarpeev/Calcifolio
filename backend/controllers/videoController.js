@@ -20,7 +20,7 @@ router.post(routeRoot + "addVideo", handleAddVideo);
 
 async function handleAddVideo(req, res) {
   try {
-    addedVideo = await model.addVideo(req.body.title, req.body.length, req.body.image);
+    addedVideo = await model.addVideo(req.body.title, req.body.url);
 
     if (addedVideo) {
       res.status(200);

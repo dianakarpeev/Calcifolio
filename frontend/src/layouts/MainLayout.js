@@ -52,11 +52,15 @@ function MainLayout() {
           }}}>
       <MenuItem icon={<MdDensityMedium/>} onClick={() => collapseSidebar()}></MenuItem>
      <MenuItem icon={<MdHome/>} component={<Link to="/" label="Home" />}>Home</MenuItem>
-     <SubMenu icon={<MdCalendarMonth/>} label="Deadlines" >
+     <SubMenu icon={<MdCalendarMonth/>} label="Deadlines">
     <MenuItem icon={<MdCalendarMonth/>} component={<Link to="/deadlines" label="Deadlines" />}>Deadlines</MenuItem>
     <MenuItem icon={<MdCalendarMonth/>} component={<Link to="/deadlines/create" label="Create deadline" />}>Create Deadline</MenuItem>
     </SubMenu>
-    <MenuItem icon={<VscPlay/>} component={<Link to="/videos" label="Videos" />}>Videos</MenuItem>
+    <SubMenu icon={<VscPlay/>} label="Videos">
+    <MenuItem icon={<VscPlay/>} component={<Link to="/videos" label="Videos"/>}>Videos</MenuItem>
+    <MenuItem icon={<VscPlay/>} component={<Link to="/videos/new" label="Videos"/>}>Upload new video</MenuItem>
+
+    </SubMenu>
     <MenuItem icon={<MdBrush/>}component={<Link to="/posts" label="Posts" />}>Art</MenuItem> 
     <MenuItem icon={<VscAccount/>} component={<Link to="/about" label="About us" />}>About us</MenuItem>
     
