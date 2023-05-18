@@ -108,18 +108,12 @@ async function getSingleVideo(title) {
  * @throws InvalidTitleError if title is an empty string
  * @throws DatabaseError if any other error is thrown 
  */
-async function updateVideo(title, newTitle, newurl) {
+async function updateVideo(title, newTitle, newUrl) {
   try {
-    if (
-      validateUtils.validTitle(title) &&
-      (validateUtils.validTitle(newTitle) && validateUtils.urlIsValid(url))
-    ) {
-      let foundVideo = await getSingleVideo(title);
-    }
-    if (foundVideo) {
+    if (validateUtils.validTitle(newTitle) && validateUtils.urlIsValid(newUrl)) {
       await videoCollection.replaceOne(
         { title: title },
-        { title: newTitle, url: newurl}
+        { title: newTitle, url: newUrl}
       );
       foundVideo = await getSingleVideo(newTitle);
       logger.info("Video updated to " + foundVideo);

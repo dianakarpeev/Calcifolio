@@ -9,6 +9,7 @@ import UserError from "../pages/UserError";
 import Deadlines from "../pages/Deadlines";
 import Posts from 'pages/Posts';
 import Videos from 'pages/Videos';
+import {AllArtwork} from './AllArtwork'
 import { AllVideos } from './AllVideos';
 import { SingleVideo } from './SingleVideo';
 import { AddVideo } from './AddVideo';
@@ -19,6 +20,8 @@ import { AddDeadline } from './AddDeadline';
 import { useState } from "react";
 
 import TwoPanes from "./TwoPanes";
+import { AddArtworkForm } from './AddArtworkForm';
+import { AddArtwork } from './AddArtWork';
 
 /**
  * Displays the navigation bar paths
@@ -47,8 +50,9 @@ function App() {
     <Route path="videos/new" element={<AddVideo />} />
         <Route path="delete" element={<DeleteVideo />} />
         <Route path="video" element={<SingleVideo />} />
-        <Route path="update" element={<UpdateVideo />} />
-        <Route path="posts" element={<Posts />} />
+        <Route path="videos/edit" element={<UpdateVideo />} />
+        <Route path="artworks" element={<AllArtwork />} />
+        <Route path="artworks/post" element={<AddArtwork />} />
         <Route path="about" element={<About />} />
         <Route path="usererror" element={<UserError />} />
         <Route path="systemerror" element={<SystemError />} />

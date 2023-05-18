@@ -171,15 +171,13 @@ router.put(routeRoot + "updateVideo/:videoTitle", handleUpdateVideo);
 
 async function handleUpdateVideo(req, res) {
   try {
-    updatedVideo = await model.updateVideo(
-      req.params.videoTitle,
-      req.body.newTitle,
-      req.body.newLength,
-      req.body.newImage,
-    );
+    title =  req.params.videoTitle
+    newTitle = req.body.newTitle
+    newUrl = req.body.newUrl
+    updatedVideo = await model.updateVideo(title, newTitle, newUrl);
     if (updatedVideo) {
       res.status(200);
-      res.send(model.updateVideo);
+      res.send(updatedVideo);
       
     } else {
       logger.error("Truthy check failed.");
@@ -190,9 +188,6 @@ async function handleUpdateVideo(req, res) {
     if (err instanceof DatabaseError) {
       res.status(500);
       res.send({error:"There was a database error: " + err.message});
-    } else if (err instanceof InvalidLengthError) {
-      res.status(400);
-      res.send({error: "There was an Invalid Length Error: " + err.message});
     } else if (err instanceof InvalidTitleError) {
       res.status(400);
       res.send({error: "There was an Invalid Title Error : " + err.message});

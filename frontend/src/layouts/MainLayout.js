@@ -61,7 +61,11 @@ function MainLayout() {
     <MenuItem icon={<VscPlay/>} component={<Link to="/videos/new" label="Videos"/>}>Upload new video</MenuItem>
 
     </SubMenu>
-    <MenuItem icon={<MdBrush/>}component={<Link to="/posts" label="Posts" />}>Art</MenuItem> 
+    <SubMenu icon={<MdBrush/>} label="Art">
+    <MenuItem icon={<MdBrush/>} component={<Link to="/artworks" label="Artwork"/>}>Artork</MenuItem>
+    <MenuItem icon={<MdBrush/>}component={<Link to="/artworks/post" label="Art" />}>Post new art</MenuItem> 
+
+    </SubMenu>  
     <MenuItem icon={<VscAccount/>} component={<Link to="/about" label="About us" />}>About us</MenuItem>
     
     <MenuItem icon={<MdContactPage/>} component={<Link to="/contact" label="Contact" />}>Contact</MenuItem>

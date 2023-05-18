@@ -1,20 +1,17 @@
 import { useState } from "react";
-import { DisplayVideo } from "./DisplayVideo";
+import { DisplayUpdatedVideo } from "./DisplayUpdatedVideo";
 import { useRef } from "react";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import React from "react";
 
 
 function UpdateVideo(props) {
-
-
-
-    const titleRef = useRef(null);
     const newTitleRef = useRef(null);
-    const imageRef = useRef(null);
-    const lengthRef = useRef(null);
+    const urlRef = useRef(null);
     const navigate = useNavigate();
     const [video, setVideo] = useState({});
+    const [searchParams, setSearchParams] = useSearchParams();
+    const title = searchParams.get("title");
 
 
 
@@ -26,8 +23,7 @@ function UpdateVideo(props) {
             method: "PUT",
             body: JSON.stringify({
                 newTitle: newTitleRef.current.value,
-                newLength: lengthRef.current.value,
-                newImage: imageRef.current.value,
+                newUrl: urlRef.current.value,
 
             }),
             headers: {
@@ -35,7 +31,7 @@ function UpdateVideo(props) {
             },
         };
 
-    const response = await fetch(`http://localhost:1339/updateVideo/${titleRef.current.value}`, requestOptions);
+    const response = await fetch(`http://localhost:1339/updateVideo/${title}`, requestOptions);
     const result = await response.json();
     console.log(result);
     if (response.status === 400) {
@@ -45,7 +41,7 @@ function UpdateVideo(props) {
         navigate("/systemerror", { state: { error: result.error } });
     }
     else {
-    props.setAdded(result);
+    setVideo(result);
     }
     };
 
@@ -53,19 +49,15 @@ function UpdateVideo(props) {
     return (
     <>
     <form onSubmit={handleSubmit}>
-            <label htmlFor="title">Title</label>
-            <input type="text" placeholder="Title..." ref={titleRef} required/>
             <label htmlFor="newTitle">New Title</label>
             <input type="text" placeholder="New Title..." ref={newTitleRef} required/>
-            <label htmlFor="newLength">New Length</label>
-            <input type="text" placeholder="New length..." ref={lengthRef} required/>
-            <label htmlFor="newImage">new Image</label>
-            <input type="text" placeholder="New image..." ref={imageRef}/>
+            <label htmlFor="newLength">New URL</label>
+            <input type="text" placeholder="New url..." ref={urlRef} required/>
             <button className="videoButton" type="submit">Update Video</button>
     </form>
 
 
-    <DisplayVideo video = {video} heading="Updated video is" />
+    <DisplayUpdatedVideo video = {video} heading="Updated video is" />
     </>
     );
 }

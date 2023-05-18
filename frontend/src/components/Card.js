@@ -11,8 +11,6 @@ function Card({ children}) {
        <div className="card">   
           {children}
           <div style={{display: "flex", flexDirection: "row", justifyContent: "center"}}>
-           <Button>Edit</Button>
-           <Button>Delete</Button>
            </div>
        </div>  
     );

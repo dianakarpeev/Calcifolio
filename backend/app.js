@@ -8,7 +8,7 @@ const httpLogger = pinohttp({
 app.use(httpLogger);
 
 // Make sure errorController is last!
-const controllers = ["homeController", "deadlineController", "videoController", "errorController"];
+const controllers = ["homeController", "deadlineController", "videoController", "artworkController" , "errorController"];
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
