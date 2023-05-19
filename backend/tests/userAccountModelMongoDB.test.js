@@ -45,3 +45,42 @@ test("Can add user to DB", async() => {
     expect(results[0].username.toLowerCase() == testUser.username.toLowerCase()).toBe(true);
     expect(await bcrypt.compare(testUser.password, results[0].password)).toBe(true);
 });
+
+test("Cannot add user with invalid username to DB", async() => {
+    const invalidUser = {username: "!@@U$B@!J12345", password: "Password!1234"};
+    try {
+        await model.createUser(invalidUser.username, invalidUser.password);
+    } catch (err) {
+        expect(err instanceof InvalidInputError).toBe(true);
+    }
+});
+
+test("Cannot add user with invalid password to DB", async () => {
+    const invalidUser = {username: "testUser", password: "easy"};
+
+    try {
+        await model.createUser(invalidUser.username, invalidUser.password);
+    } catch (err) {
+        expect (err instanceof InvalidInputError).toBe(true);
+    }
+});
+
+test("Cannot add user with empty username", async () => {
+    const invalidUser = {username: "", password: "Test!1234"};
+
+    try {
+        await model.createUser(invalidUser.username, invalidUser.password)
+    } catch (err) {
+        expect (err instanceof InvalidInputError).toBe(true);
+    }
+});
+
+test("Cannot add user with empty password", async () => {
+    const invalidUser = {username: "testUser", password: ""};
+
+    try {
+        await model.createUser(invalidUser.username, invalidUser.password)
+    } catch (err) {
+        expect (err instanceof InvalidInputError).toBe(true);
+    }
+});
