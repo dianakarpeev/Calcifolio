@@ -1,0 +1,27 @@
+/* theme.css */
+
+body {
+    background-color: #292524;
+    color: #FF9900;
+    font-family: Arial, sans-serif;
+  }
+  
+  a {
+    color: #FF9900;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  h1 {
+    color: #FF9900;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  

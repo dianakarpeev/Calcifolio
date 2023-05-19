@@ -23,6 +23,7 @@ import TwoPanes from "./TwoPanes";
 import { AddArtworkForm } from './AddArtworkForm';
 import { AddArtwork } from './AddArtWork';
 import { UpdateDeadlineByName } from './UpdateDeadlineByName';
+import { UpdateArtwork } from './UpdateArtwork';
 
 /**
  * Displays the navigation bar paths
@@ -54,6 +55,7 @@ function App() {
         <Route path="videos/edit" element={<UpdateVideo />} />
         <Route path="artworks" element={<AllArtwork />} />
         <Route path="artworks/post" element={<AddArtwork />} />
+        <Route path="artworks/update" element={<UpdateArtwork />} />
         <Route path="about" element={<About />} />
         <Route path="usererror" element={<UserError />} />
         <Route path="systemerror" element={<SystemError />} />
