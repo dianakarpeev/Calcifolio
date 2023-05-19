@@ -62,15 +62,6 @@ function UpdateDeadlineByNameForm(props) {
       <h2>Update by name</h2>
       <form onSubmit={handleSubmit}>
         <div style={border3}>
-        <label style={label} htmlFor="name">
-          Name
-        </label>
-        <input
-          type="text"
-          placeholder="Name..."
-          ref={projectNameRef}
-          required
-        />
         <br />
         <label style={label} htmlFor="name">
           New Name
