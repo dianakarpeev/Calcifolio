@@ -111,7 +111,7 @@ function isValidDate(projectDueDay) {
  * @param {string} date expected format: April 24, 2019
  * @returns true/false
  */
-function dateIsValid(date) {
+function isValidDate(date) {
   const result = Date.parse(date);
   if (isNaN(result)) {
     console.log(
@@ -130,7 +130,7 @@ function dateIsValid(date) {
  * @param {string} url
  * @returns true/false
  */
-function urlIsValid(url) {
+function isValidUrl(url) {
   try {
     const newURL = new URL(url);
     return true;
@@ -150,7 +150,7 @@ function urlIsValid(url) {
  * @param {string} name
  * @returns true/false
  */
-function nameIsValid(name) {
+function isValidArtworkName(name) {
   if (typeof name != "string") {
     console.log(
       "Error! Name: '" + name + "' is invalid. Please input a valid string."
@@ -242,9 +242,9 @@ module.exports = {
   isValid,
   isValidName,
   isValidDate,
-  nameIsValid,
-  urlIsValid,
-  dateIsValid,
+  isValidArtworkName,
+  isValidUrl,
+  isValidDate,
   isValidPassword,
   isValidUsername
 };

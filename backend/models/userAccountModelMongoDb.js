@@ -147,19 +147,20 @@ async function close() {
  * Creates a new user account in the database. Hashes the password before storing it.
  * @param {string} username of the new user to create
  * @param {string} password of the new user to create.
+ * @param {string} profilePicture url of profile picture of new user to create
  * @returns true if successful, throws an error otherwise
  * 
  * throws {InvalidInputError} if the username is empty or is not written in the correct username format.
  * throws {DatabaseError} if the problem is related to the database connectivity and its interactions.
  * throws Exception if the project comes to contact with unknown errors that are unexpected instead of 'swallowing' other types.
  */
-async function createUser(username, password){
+async function createUser(username, password, profilePicture){
     try {
         let username = username.toLocaleLowecase();
-        if (validateUtils.isValidUsername(username)){
+        if (validateUtils.isValidUsername(username) && validateUtils.urlIsValid(profilePicture)){
             if (validateUtils.isValidPassword(password) && !hasDuplicates(password)){
                 const hashPassword = await bcrypt.hash(password, saltRounds);
-                const user = {username: username, password: hashPassword};
+                const user = {username: username, password: hashPassword, profilePicture: profilePicture};
                 await userCollection.insertOne(user);
                 logger.info("Successful user registration");
                 return true;
@@ -255,6 +256,13 @@ async function updateUsername(oldUsername, newUsername, password){
   }
 }
 
+/**
+ * Updates an user's account password
+ * @param {string} username of account to update the password of
+ * @param {string} oldPassword password of account to update
+ * @param {string} newPassword to change oldPassword of account to update to
+ * @returns user account with updated password
+ */
 async function updatePassword(username, oldPassword, newPassword){
   try {
     const user = username.toLocaleLowecase();
