@@ -8,7 +8,7 @@ const validator = require("validator");
 const P = require("pino");
 
 /* --------------------------- Create User (POST) --------------------------- */
-router.post("/signin", handleCreateUser);
+router.post("/signup", handleCreateUser);
 
 /**
  * Handles creation of new user in the database.
@@ -30,7 +30,7 @@ async function handleCreateUser(req, res) {
     res.status(200);
     res.send(result);
   } catch (err) {
-    console.log("Failed to create project deadline: " + err.message);
+    console.log("Failed to create a user account: " + err.message);
 
     if (err instanceof InvalidInputError) {
       userMessage =
@@ -54,7 +54,7 @@ router.get("/user/:username", handleGetUser);
 
 /**
  * Handles the request of getting an existing user in the database.
- * @param {object} req Expects username body paramater
+ * @param {object} req Expects username body parameter
  * @param {object} res Sends user information
  *
  * throws {InvalidInputError} if the username is empty or incorrect. 400
@@ -89,8 +89,39 @@ async function handleGetUser(req, res) {
     res.send({ errorMessage: userMessage });
   }
 }
+router.get("/login", handleGetUserLogins);
+async function handleGetUserLogins(req, res) {
+  let userMessage;
 
-/* -------------------------- Update Deadline (PUT) ------------------------- */
+  try {
+    let username = req.body.username;
+    let password = req.body.password;
+    let result = await model.checkCredentials(username, password);
+    console.log(result);
+    res.status(200);
+    res.send(result);
+  } catch (err) {
+    console.log(err.message);
+
+    if (err instanceof InvalidInputError) {
+      userMessage =
+        "The request cannot be fulfilled due to invalid input: \n" +
+        err.message;
+      res.status(400);
+    } else if (err instanceof DatabaseError) {
+      userMessage = "Internal error: " + err.message;
+      res.status(500);
+    } else {
+      res.status(500);
+      userMessage = "Unexpected Error: failed to get user " + username;
+    }
+
+    res.send({ errorMessage: userMessage });
+  }
+}
+
+
+/* -------------------------- Update User (PUT) ------------------------- */
 router.put("/deadlines/:username", handleUpdateUser);
 
 async function handleUpdateUser(req, res){

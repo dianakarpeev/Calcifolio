@@ -267,5 +267,14 @@ function validTitle(title) {
 return true;
 }
 
-module.exports = { isValid, isValidName, isValidDate, nameIsValid, urlIsValid, dateIsValid, validTitle };
+module.exports = {
+  isValid,
+  isValidName,
+  isValidDate,
+  isValidArtworkName,
+  isValidUrl,
+  isValidDate,
+  isValidPassword,
+  isValidUsername,
+  validTitle };
 

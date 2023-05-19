@@ -93,7 +93,7 @@ async function close() {
   */
   async function checkCredentials(name, passwordToCheck){
     try {
-      const username = name.toLocaleLowecase();
+      const username = name.toLocaleLowercase();
       
       if (validateUtils.isValidUsername(username) && validateUtils.isValidPassword(password)){
         const result = await userCollection.findOne({username: username, password: passwordToCheck});
@@ -125,7 +125,7 @@ async function close() {
    */
   async function hasDuplicates(usernameToCheck){
     try {
-      usernameToCheck = usernameToCheck.toLocaleLowecase();
+      usernameToCheck = usernameToCheck.toLocaleLowercase();
       let result = await userCollection.findOne({username: usernameToCheck});
     
       if (result == null || !validator.compare(result.username, usernameToCheck))
@@ -155,7 +155,7 @@ async function close() {
  */
 async function createUser(username, password){
     try {
-        let username = username.toLocaleLowecase();
+        let username = username.toLocaleLowercase();
         if (validateUtils.isValidUsername(username)){
             if (validateUtils.isValidPassword(password) && !hasDuplicates(password)){
                 const hashPassword = await bcrypt.hash(password, saltRounds);
@@ -183,14 +183,14 @@ async function createUser(username, password){
  */
 async function getSingleUser(username){
   try {
-    const name = username.toLocaleLowecase();
+    const name = username.toLocaleLowercase();
     if (validateUtils.isValidUsername(name)){
       let result = await userCollection.findOne({username: name});
 
       if (result == null || result == undefined)
         throw new InvalidInputError("Username does not exist in the database.");
 
-      logger.info("Successfuly reading of user account");
+      logger.info("Successfully reading of user account");
       return result;
     }
   } catch (error) {
@@ -318,3 +318,15 @@ async function deleteUser(username, userPassword){
   }
 }
 
+module.exports = {
+  initialize,
+  close,
+  deleteUser,
+  checkCredentials,
+  updatePassword,
+  updateUsername,
+  getAllUsers,
+  getSingleUser,
+  createUser,
+  hasDuplicates
+};
