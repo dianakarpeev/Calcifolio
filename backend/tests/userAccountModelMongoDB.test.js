@@ -84,3 +84,13 @@ test("Cannot add user with empty password", async () => {
         expect (err instanceof InvalidInputError).toBe(true);
     }
 });
+
+test("Can get a single user from DB", async () => {
+    const testUser = { username: "test2", password: "Password!1234"};
+    await model.createUser(testUser.username, testUser.password);
+    const result = await model.getSingleUser(testUser.username);
+
+    expect(result != null).toBe(true);
+    expect(result.username.toLowerCase() == testUser.username.toLowerCase()).toBe(true);
+    expect(await bcrypt.compare(testUser.password, result.password)).toBe(true);
+});
