@@ -122,7 +122,7 @@ async function handleGetUserLogins(req, res) {
 }
 
 /* -------------------------- Update User (PUT) ------------------------- */
-router.put("/deadlines/:username", handleUpdateUser);
+router.put("/users/:username", handleUpdateUser);
 
 async function handleUpdateUser(req, res) {
   try {
@@ -216,7 +216,7 @@ async function handleUpdatePassword(req, res) {
 }
 
 /* -------------------------- Delete User (DELETE) -------------------------- */
-router.delete("/deadlines/:username", handleDeleteUser);
+router.delete("/users/:username", handleDeleteUser);
 
 async function handleDeleteUser(req, res) {
   let userMessage;
