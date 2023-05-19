@@ -120,30 +120,98 @@ async function handleGetUserLogins(req, res) {
   }
 }
 
-
 /* -------------------------- Update User (PUT) ------------------------- */
 router.put("/deadlines/:username", handleUpdateUser);
 
-async function handleUpdateUser(req, res){
+async function handleUpdateUser(req, res) {
+  try {
     if (req.body.newUsername != null && req.body.newUsername != undefined)
-        handleUpdateUsername(req, res);
+      handleUpdateUsername(req, res);
 
     if (req.body.newPassword != null && req.body.newPassword != undefined)
-        handleUpdatePassword(req, res);
+      handleUpdatePassword(req, res);
+
+    console.log(result);
+    res.status(200);
+    res.send(result);
+  } catch (err) {
+    console.log(err.message);
+
+    if (err instanceof InvalidInputError) {
+      userMessage =
+        "The request cannot be fulfilled due to invalid input: \n" +
+        err.message;
+      res.status(400);
+    } else if (err instanceof DatabaseError) {
+      userMessage = "Internal error: " + err.message;
+      res.status(500);
+    } else {
+      res.status(500);
+      userMessage = "Unexpected Error: failed to get user " + username;
+    }
+
+    res.send({ errorMessage: userMessage });
+  }
 }
 
-async function handleUpdateUsername(req, res){
+async function handleUpdateUsername(req, res) {
+  try {
     let username = req.params.username;
     let newUsername = req.body.newUsername;
     let password = req.body.password;
 
     let result = await model.updateUsername(username, newUsername, password);
+    console.log(result);
+    res.status(200);
+    res.send(result);
+  } catch (err) {
+    console.log(err.message);
+
+    if (err instanceof InvalidInputError) {
+      userMessage =
+        "The request cannot be fulfilled due to invalid input: \n" +
+        err.message;
+      res.status(400);
+    } else if (err instanceof DatabaseError) {
+      userMessage = "Internal error: " + err.message;
+      res.status(500);
+    } else {
+      res.status(500);
+      userMessage = "Unexpected Error: failed to get user " + username;
+    }
+
+    res.send({ errorMessage: userMessage });
+  }
 }
 
-async function handleUpdatePassword(req, res){
+async function handleUpdatePassword(req, res) {
+  try {
     let username = req.params.username;
     let password = req.body.password;
     let newPassword = red.body.newPassword;
+
+    let result = await models.updatePassword(username, password, newPassword);
+    console.log(result);
+    res.status(200);
+    res.send(result);
+  } catch (err) {
+    console.log(err.message);
+
+    if (err instanceof InvalidInputError) {
+      userMessage =
+        "The request cannot be fulfilled due to invalid input: \n" +
+        err.message;
+      res.status(400);
+    } else if (err instanceof DatabaseError) {
+      userMessage = "Internal error: " + err.message;
+      res.status(500);
+    } else {
+      res.status(500);
+      userMessage = "Unexpected Error: failed to get user " + username;
+    }
+
+    res.send({ errorMessage: userMessage });
+  }
 }
 
 /* -------------------------- Delete User (DELETE) -------------------------- */
