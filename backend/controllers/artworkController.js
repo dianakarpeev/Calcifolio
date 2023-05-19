@@ -70,6 +70,8 @@ async function handleDeleteArtwork(req, res) {
 try {
     let userMessage;
     let artworkName = req.params.artworkName;
+
+
     let result = await model.deleteArtwork(artworkName);
     res.status(200);
     res.send(result);
@@ -92,6 +94,37 @@ try {
   }
 }
 
+
+router.put("/artworks/update/:artworkName", handleUpdateArtwork);
+async function handleUpdateArtwork(req, res) {
+  try {
+      let userMessage;
+      let artworkName = req.params.artworkName;
+      let NewArtworkName = req.body.NewArtworkName;
+      let NewArtworkUrl = req.body.NewArtworkUrl;
+      let NewArtworkDate = req.body.NewArtworkDate;
+  
+      let result = await model.updateArtwork(artworkName, NewArtworkName, NewArtworkUrl, NewArtworkDate);
+      res.status(200);
+      res.send(result);
+    } catch (err) {
+      //--------------- Error handling ---------------
+      console.log("Failed to delete artwork: " + err.message);
+      if (err instanceof InvalidInputError) {
+        userMessage =
+          "The request cannot be fulfilled due to invalid input: \n" +
+          err.message;
+        res.status(400);
+      } else if (err instanceof DatabaseError) {
+        userMessage = "Internal error: " + err.message;
+        res.status(500);
+      } else {
+        res.status(500);
+        userMessage = "Unexpected Error: failed to delete artwork";
+      }
+      res.send({ errorMessage: userMessage });
+    }
+  }
 module.exports = {
     router,
     routeRoot,

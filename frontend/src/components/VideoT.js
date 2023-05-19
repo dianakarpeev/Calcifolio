@@ -3,7 +3,7 @@ function Video(props) {
 
 const src = props.url;
   return (
-    <ReactPlayer width="100%" height="100%" controls="true" url={src}></ReactPlayer>
+    <ReactPlayer width="100%" controls="true" url={src}></ReactPlayer>
   );
 };
 
