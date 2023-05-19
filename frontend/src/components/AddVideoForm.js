@@ -17,6 +17,7 @@ function AddVideoForm(props) {
         clear: "left",
         textAlign: "center",
         paddingRight: "10px",
+        color: "orange",
       };
       const button={
         width: "180px",
@@ -58,6 +59,7 @@ function AddVideoForm(props) {
 
     return (
         <div>
+        <h2 style={{color: "orange"}}>Post new vide</h2>
         <form onSubmit={handleSubmit}>
         <div style={border3}>
           <label style={label} htmlFor="name">

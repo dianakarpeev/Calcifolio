@@ -11,6 +11,7 @@ const label = {
   clear: "left",
   textAlign: "center",
   paddingRight: "10px",
+  color: "orange",
 };
 const button={
   width: "180px",
@@ -68,7 +69,7 @@ function AddArtworkForm(props) {
   };
   return (
     <div >
-      <h2>Post new artwork</h2>
+      <h2 style={{color: "orange"}}>Post new artwork</h2>
       <form onSubmit={handleSubmit}>
         <div style={border3}>
           <label style={label} htmlFor="name">

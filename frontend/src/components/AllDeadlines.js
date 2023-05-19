@@ -29,7 +29,7 @@ function AllDeadlines({setDisplay}){
 
   return (
     <div>
-      <h2> Deadlines</h2>
+      <h2 style={{color: "orange"}}> Deadlines</h2>
       <ListDeadlines deadlines={deadlines}/>
     </div>
   );
