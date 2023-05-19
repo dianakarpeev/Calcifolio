@@ -38,7 +38,7 @@ function MainLayout() {
   const {collapseSidebar} = useProSidebar();
    return   (
     
-   <div style={{ display: 'flex', height: '100%', minHeight: '100vh'}}>
+   <div style={{ display: 'flex', height: '100%', minHeight: '100vh' }}>
    <Sidebar backgroundColor="#292524" defaultCollapsed="true" collapsedWidth="60px" margin="0%" padding="100%">
      <Menu style = {{ display: "flex", flexDirection :"row", textAlign: "center", justifyContent: "flex-start"}} menuItemStyles={{
           button: {

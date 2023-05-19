@@ -52,7 +52,7 @@ try {
     res.send(result);
   } catch (err) {
     //--------------- Error handling ---------------
-    console.log("Failed to create project deadline: " + err.message);
+    console.log("Failed to create artwork: " + err.message);
     if (err instanceof InvalidInputError) {
       userMessage =
         "The request cannot be fulfilled due to invalid input: \n" +
@@ -63,7 +63,35 @@ try {
       res.status(500);
     } else {
       res.status(500);
-      userMessage = "Unexpected Error: failed to create new event deadline";
+      userMessage = "Unexpected Error: failed to create new artwork";
+    }
+    res.send({ errorMessage: userMessage });
+  }
+}
+
+router.delete("/artworks/delete/:artworkName", handleDeleteArtwork);
+
+async function handleDeleteArtwork(req, res) {
+try {
+    let userMessage;
+    let artworkName = req.params.artworkName;
+    let result = await model.deleteArtwork(artworkName);
+    res.status(200);
+    res.send(result);
+  } catch (err) {
+    //--------------- Error handling ---------------
+    console.log("Failed to delete artwork: " + err.message);
+    if (err instanceof InvalidInputError) {
+      userMessage =
+        "The request cannot be fulfilled due to invalid input: \n" +
+        err.message;
+      res.status(400);
+    } else if (err instanceof DatabaseError) {
+      userMessage = "Internal error: " + err.message;
+      res.status(500);
+    } else {
+      res.status(500);
+      userMessage = "Unexpected Error: failed to delete artwork";
     }
     res.send({ errorMessage: userMessage });
   }

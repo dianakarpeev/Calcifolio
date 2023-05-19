@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AddVideoForm } from "./AddVideoForm";
-import { DisplayVideo } from "./DisplayVideo";
+import { DisplayUpdatedVideo } from "./DisplayUpdatedVideo";
 
 function AddVideo() {
     const [added, setAdded] = useState({});
@@ -9,7 +9,7 @@ function AddVideo() {
         <div style={{textAlign: "center", display:"flex", alignContent: "center"}}>
         <AddVideoForm setAdded = {setAdded} />
 
-        <DisplayVideo video={added} heading="Video:"/>
+        <DisplayUpdatedVideo video={added} heading="Video:"/>
         
         
         </div>

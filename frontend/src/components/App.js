@@ -22,6 +22,7 @@ import { useState } from "react";
 import TwoPanes from "./TwoPanes";
 import { AddArtworkForm } from './AddArtworkForm';
 import { AddArtwork } from './AddArtWork';
+import { UpdateDeadlineByName } from './UpdateDeadlineByName';
 
 /**
  * Displays the navigation bar paths
@@ -48,7 +49,7 @@ function App() {
     </div>  } />
     <Route path="videos" element={<AllVideos />} />
     <Route path="videos/new" element={<AddVideo />} />
-        <Route path="delete" element={<DeleteVideo />} />
+        <Route path="videos/delete" element={<DeleteVideo />} />
         <Route path="video" element={<SingleVideo />} />
         <Route path="videos/edit" element={<UpdateVideo />} />
         <Route path="artworks" element={<AllArtwork />} />
