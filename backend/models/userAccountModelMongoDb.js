@@ -93,7 +93,7 @@ async function close() {
   */
   async function checkCredentials(name, passwordToCheck){
     try {
-      const username = name.toLocaleLowercase();
+      let username = name.toLocaleLowercase();
       
       if (validateUtils.isValidUsername(username) && validateUtils.isValidPassword(password)){
         const result = await userCollection.findOne({username: username, password: passwordToCheck});
@@ -125,7 +125,7 @@ async function close() {
    */
   async function hasDuplicates(usernameToCheck){
     try {
-      usernameToCheck = usernameToCheck.toLocaleLowercase();
+      usernameToCheck = usernameToCheck.toLocaleLowerCase();
       let result = await userCollection.findOne({username: usernameToCheck});
     
       if (result == null || !validator.compare(result.username, usernameToCheck))
@@ -155,11 +155,11 @@ async function close() {
  */
 async function createUser(username, password){
     try {
-        let username = username.toLocaleLowercase();
-        if (validateUtils.isValidUsername(username)){
+        let user = username.toLocaleLowerCase();
+        if (validateUtils.isValidUsername(user)){
             if (validateUtils.isValidPassword(password) && !hasDuplicates(password)){
                 const hashPassword = await bcrypt.hash(password, saltRounds);
-                const user = {username: username, password: hashPassword,};
+                const user = {username: user, password: hashPassword,};
                 await userCollection.insertOne(user);
                 logger.info("Successful user registration");
                 return true;

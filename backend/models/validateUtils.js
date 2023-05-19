@@ -202,8 +202,9 @@ function isValidUsername(username) {
   const minAmountChars = 3;
   const maxAmountChars = 11;
 
+  validator.id
   //if username is not a string
-  if (!validator.isString(username)) {
+  if (!typeof username==='string') {
     console.log("Error! Username '" + username + "' needs to be a string.");
     return false;
   }
