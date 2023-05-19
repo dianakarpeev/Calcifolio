@@ -34,11 +34,6 @@ async function handleGetAllArtwork(req, res) {
   }
 }
 
-
-
-
-
-
 router.post("/artworks", handleCreateArtwork);
 
 async function handleCreateArtwork(req, res) {
@@ -96,6 +91,7 @@ try {
     res.send({ errorMessage: userMessage });
   }
 }
+
 module.exports = {
     router,
     routeRoot,
