@@ -12,7 +12,7 @@ const express = require("express");
 const router = express.Router();
 const routeRoot = "/users";
 const validator = require('validator');
-//const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 let client;
@@ -155,12 +155,11 @@ async function close() {
  */
 async function createUser(username, password){
     try {
-        let user = username.toLocaleLowerCase();
-        if (validateUtils.isValidUsername(user)){
+        let lowerUsername = username.toLowerCase();
+        if (validateUtils.isValidUsername(lowerUsername)){
             if (validateUtils.isValidPassword(password) && !hasDuplicates(password)){
                 const hashPassword = await bcrypt.hash(password, saltRounds);
-                const user = {username: user, password: hashPassword,};
-                await userCollection.insertOne(user);
+                await userCollection.insertOne({username: lowerUsername, password: hashPassword});
                 logger.info("Successful user registration");
                 return true;
             }
