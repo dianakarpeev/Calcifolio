@@ -59,7 +59,7 @@ function AddVideoForm(props) {
 
     return (
         <div>
-        <h2 style={{color: "orange"}}>Post new vide</h2>
+        <h2 style={{color: "orange"}}>Post new video</h2>
         <form onSubmit={handleSubmit}>
         <div style={border3}>
           <label style={label} htmlFor="name">
