@@ -93,15 +93,16 @@ async function close() {
   */
   async function checkCredentials(name, passwordToCheck){
     try {
-      const username = name.toLocaleLowercase();
+      const username = name.toLocaleLowerCase();
       
-      if (validateUtils.isValidUsername(username) && validateUtils.isValidPassword(password)){
-        const result = await userCollection.findOne({username: username, password: passwordToCheck});
+      if (validateUtils.isValidUsername(username) && validateUtils.isValidPassword(passwordToCheck)){
+        const result = await userCollection.findOne( { username: username } );
 
-        if (result == null || result == undefined)
+        if (result == null || result == undefined) {
           throw new InvalidInputError("Cannot find information for account of " + username + " in the database. Cannot authenticate");
+        }
 
-        const isSame = await bcrypt.compare(password, result.password);
+        const isSame = await bcrypt.compare(passwordToCheck, result.password);
         
         if (isSame){
           console.log("Successfully authenticated user.");
