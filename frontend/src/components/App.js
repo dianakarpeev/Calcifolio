@@ -44,6 +44,7 @@ function App() {
       <Route index element={<Welcome />} />
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<Signup />} />
+      <Route path="about" element={<About />} />
       </Route>
     </Routes>
     </div>
@@ -69,6 +70,7 @@ function App() {
         <Route path="artworks/update" element={<UpdateArtwork />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
+        <Route path="about" element={<About />} />
         <Route path="usererror" element={<UserError />} />
         <Route path="systemerror" element={<SystemError />} />
         

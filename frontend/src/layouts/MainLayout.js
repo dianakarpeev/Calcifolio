@@ -60,6 +60,7 @@ if (cookies.user == null) {
     <MenuItem icon={<MdHome/>} component={<Link to="/" label="Home" />}>Home</MenuItem>
     <MenuItem icon={<MdOutlineLogin/>} component={<Link to="/login" label="Login" />}>Login</MenuItem>
     <MenuItem icon={<MdArrowUpward/>} component={<Link to="/signup" label="Sign up" />}>Sign up</MenuItem>
+    <MenuItem icon={<VscAccount/>} component={<Link to="/about" label="About us" />}>About us</MenuItem>
      </Menu>
    </Sidebar>
    <main style={{ padding: 10 }}> 
@@ -105,6 +106,7 @@ if (cookies.user == null) {
     <MenuItem icon={<MdOutlineLogin/>} component={<Link to="/login" label="Login" />}>Login</MenuItem>
     
     <MenuItem icon={<MdArrowUpward/>} component={<Link to="/signup" label="Sign up" />}>Sign up</MenuItem>
+    <MenuItem icon={<VscAccount/>} component={<Link to="/about" label="About us" />}>About us</MenuItem>
      </Menu>
    </Sidebar>
    <main style={{ padding: 10 }}> 
