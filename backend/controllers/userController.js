@@ -7,6 +7,9 @@ const model = require("../models/userAccountModelMongoDb.js");
 const validator = require("validator");
 const P = require("pino");
 
+
+
+module.exports = { router, routeRoot };
 /* --------------------------- Create User (POST) --------------------------- */
 router.post("/signup", handleCreateUser);
 
@@ -23,7 +26,7 @@ async function handleCreateUser(req, res) {
   let userMessage;
 
   try {
-    let username = req.body.username;
+    let username = req.body.username
     let password = req.body.password;
 
     let result = await model.createUser(username, password);

@@ -34,7 +34,7 @@ async function initialize(db_name, flag, url) {
     try {
       client = new MongoClient(url); //store connected client for use while the app is running
       await client.connect();
-      logger.info("Connected to MongoDB");
+      logger.info("Users connected to MongoDB");
       db = client.db(db_name);
   
       // Check to see if the event deadlines collection exists
@@ -125,10 +125,10 @@ async function close() {
    */
   async function hasDuplicates(usernameToCheck){
     try {
-      usernameToCheck = usernameToCheck.toLocaleLowercase();
-      let result = await userCollection.findOne({username: usernameToCheck});
+      usernameToCheck = usernameToCheck.toLocaleLowerCase();
+      let result = await userCollection.findOne({ username: usernameToCheck });
     
-      if (result == null || !validator.compare(result.username, usernameToCheck))
+      if (result == null)
         return false;
       else 
         return true;
@@ -155,11 +155,11 @@ async function close() {
  */
 async function createUser(username, password){
     try {
-        let username = username.toLocaleLowercase();
-        if (validateUtils.isValidUsername(username)){
-            if (validateUtils.isValidPassword(password) && !hasDuplicates(username)){
+        let lowerUsername = username.toLocaleLowerCase();
+        if (validateUtils.isValidUsername(lowerUsername)){
+            if (validateUtils.isValidPassword(password) && (!(await hasDuplicates(lowerUsername)))){
                 const hashPassword = await bcrypt.hash(password, saltRounds);
-                const user = {username: username, password: hashPassword,};
+                const user = {username: lowerUsername, password: hashPassword,};
                 await userCollection.insertOne(user);
                 logger.info("Successful user registration");
                 return true;

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 function SignupForm() {
     const username = useRef(null);
     const pwd = useRef(null);
-    const navigate = useNavigate();
+    const navigate = useNavigate
     const handleSubmit = async (event) => {
         event.preventDefault();
 
