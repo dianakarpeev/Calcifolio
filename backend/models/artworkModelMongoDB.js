@@ -149,7 +149,7 @@ async function updateArtwork(oldName, newName, newURL, newDate) {
       { name: oldName },
       { $set: { name: newName, url: newURL, date: newDate } }
     );
-    return true;
+    return { name: newName, url: newURL, date: newDate };
   }
   throw new InvalidInputError(
     "Name, URL or date to update artwork " + oldName + " to is invalid."
