@@ -5,6 +5,7 @@ const { InvalidInputError } = require("../models/InvalidInputError");
 const { DatabaseError } = require("../models/DatabaseError");
 const model = require("../models/userAccountModelMongoDb.js");
 const validator = require("validator");
+const P = require("pino");
 
 /* --------------------------- Create User (POST) --------------------------- */
 router.post("/signin", handleCreateUser);
@@ -90,7 +91,29 @@ async function handleGetUser(req, res) {
 }
 
 /* -------------------------- Update Deadline (PUT) ------------------------- */
-router.put("/deadlines", handleUpdateUser);
+router.put("/deadlines/:username", handleUpdateUser);
+
+async function handleUpdateUser(req, res){
+    if (req.body.newUsername != null && req.body.newUsername != undefined)
+        handleUpdateUsername(req, res);
+
+    if (req.body.newPassword != null && req.body.newPassword != undefined)
+        handleUpdatePassword(req, res);
+}
+
+async function handleUpdateUsername(req, res){
+    let username = req.params.username;
+    let newUsername = req.body.newUsername;
+    let password = req.body.password;
+
+    let result = await model.updateUsername(username, newUsername, password);
+}
+
+async function handleUpdatePassword(req, res){
+    let username = req.params.username;
+    let password = req.body.password;
+    let newPassword = red.body.newPassword;
+}
 
 /* -------------------------- Delete User (DELETE) -------------------------- */
 router.delete("/deadlines/:username", handleDeleteUser);
