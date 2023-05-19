@@ -18,6 +18,9 @@ body {
   h1 {
     color: #FF9900;
   }
+  p {
+    color: #FF9900;
+  }
   
   .container {
     max-width: 800px;

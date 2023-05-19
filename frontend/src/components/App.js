@@ -22,6 +22,7 @@ import { UpdateArtwork } from './UpdateArtwork';
 import { Signup } from './Signup';
 import {Login} from './Login';
 import { Welcome } from './Welcome';
+import { Success } from './Success';
 
 /**
  * Displays the navigation bar paths
@@ -45,6 +46,7 @@ function App() {
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<Signup />} />
       <Route path="about" element={<About />} />
+      <Route path="success" element={<Success />} />
       </Route>
     </Routes>
     </div>

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 function SignupForm() {
     const username = useRef(null);
     const pwd = useRef(null);
-    const navigate = useNavigate
+    const navigate = useNavigate();
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -29,7 +29,9 @@ function SignupForm() {
           navigate("/systemerror", {
             state: { errorMessage: result.errorMessage },
           });
-    }}
+        }
+        navigate("/success");
+    }
     return (
     <form onSubmit={handleSubmit}>
         <div>
