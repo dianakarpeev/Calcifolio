@@ -53,7 +53,7 @@ async function initialize(databaseName = dbName, reset, url) {
  */
 async function addVideo(title, url) {
   try {
-    if (validateUtils.validTitle(title) && validateUtils.urlIsValid(url)) {
+    if (validateUtils.validTitle(title) && validateUtils.isValidUrl(url)) {
       await videoCollection.insertOne({ title: title, url : url});
       return { title: title, url: url};
     }
@@ -110,7 +110,7 @@ async function getSingleVideo(title) {
  */
 async function updateVideo(title, newTitle, newUrl) {
   try {
-    if (validateUtils.validTitle(newTitle) && validateUtils.urlIsValid(newUrl)) {
+    if (validateUtils.validTitle(newTitle) && validateUtils.isValidUrl(newUrl)) {
       await videoCollection.replaceOne(
         { title: title },
         { title: newTitle, url: newUrl}

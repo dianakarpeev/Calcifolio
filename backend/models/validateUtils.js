@@ -253,16 +253,7 @@ function isValidUsername(username) {
 
 }
 
-module.exports = {
-  isValid,
-  isValidName,
-  isValidDate,
-  isValidArtworkName,
-  isValidUrl,
-  isValidDate2,
-  isValidPassword,
-  isValidUsername,
-};
+
 
 //VIDEO VALIDATORS
 
@@ -291,7 +282,7 @@ module.exports = {
   isValidDate,
   isValidArtworkName,
   isValidUrl,
-  isValidDate,
+  isValidDate2,
   isValidPassword,
   isValidUsername,
   validTitle,

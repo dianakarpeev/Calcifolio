@@ -93,7 +93,7 @@ async function close() {
   */
   async function checkCredentials(name, passwordToCheck){
     try {
-      let username = name.toLocaleLowercase();
+      let username = name.toLocaleLowerCase();
       
       if (validateUtils.isValidUsername(username) && validateUtils.isValidPassword(passwordToCheck)){
         const result = await userCollection.findOne( { username: username } );
@@ -183,7 +183,7 @@ async function createUser(username, password){
  */
 async function getSingleUser(username){
   try {
-    const name = username.toLocaleLowercase();
+    const name = username.toLocaleLowerCase();
     if (validateUtils.isValidUsername(name)){
       let result = await userCollection.findOne({username: name});
 
@@ -232,8 +232,8 @@ async function getAllUsers(){
  */
 async function updateUsername(oldUsername, newUsername, password){
   try {
-    const user = oldUsername.toLocaleLowecase();
-    const newName = newUsername.toLocaleLowecase();
+    const user = oldUsername.toLocaleLowerCase();
+    const newName = newUsername.toLocaleLowerCase();
 
     if (await checkCredentials(oldUsername, password)){
       if (validateUtils.isValidUsername(user)){
@@ -264,7 +264,7 @@ async function updateUsername(oldUsername, newUsername, password){
  */
 async function updatePassword(username, oldPassword, newPassword){
   try {
-    const user = username.toLocaleLowecase();
+    const user = username.toLocaleLowerCase();
 
     if (validateUtils.isValidPassword(newPassword)){
       if (await checkCredentials(username, password)){
