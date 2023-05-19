@@ -93,7 +93,7 @@ async function close() {
   */
   async function checkCredentials(name, passwordToCheck){
     try {
-      const username = name.toLocaleLowecase();
+      const username = name.toLocaleLowercase();
       
       if (validateUtils.isValidUsername(username) && validateUtils.isValidPassword(password)){
         const result = await userCollection.findOne({username: username, password: passwordToCheck});
@@ -125,7 +125,7 @@ async function close() {
    */
   async function hasDuplicates(usernameToCheck){
     try {
-      usernameToCheck = usernameToCheck.toLocaleLowecase();
+      usernameToCheck = usernameToCheck.toLocaleLowercase();
       let result = await userCollection.findOne({username: usernameToCheck});
     
       if (result == null || !validator.compare(result.username, usernameToCheck))
@@ -147,20 +147,19 @@ async function close() {
  * Creates a new user account in the database. Hashes the password before storing it.
  * @param {string} username of the new user to create
  * @param {string} password of the new user to create.
- * @param {string} profilePicture url of profile picture of new user to create
  * @returns true if successful, throws an error otherwise
  * 
  * throws {InvalidInputError} if the username is empty or is not written in the correct username format.
  * throws {DatabaseError} if the problem is related to the database connectivity and its interactions.
  * throws Exception if the project comes to contact with unknown errors that are unexpected instead of 'swallowing' other types.
  */
-async function createUser(username, password, profilePicture){
+async function createUser(username, password){
     try {
-        let username = username.toLocaleLowecase();
-        if (validateUtils.isValidUsername(username) && validateUtils.urlIsValid(profilePicture)){
+        let username = username.toLocaleLowercase();
+        if (validateUtils.isValidUsername(username)){
             if (validateUtils.isValidPassword(password) && !hasDuplicates(password)){
                 const hashPassword = await bcrypt.hash(password, saltRounds);
-                const user = {username: username, password: hashPassword, profilePicture: profilePicture};
+                const user = {username: username, password: hashPassword,};
                 await userCollection.insertOne(user);
                 logger.info("Successful user registration");
                 return true;
@@ -184,14 +183,14 @@ async function createUser(username, password, profilePicture){
  */
 async function getSingleUser(username){
   try {
-    const name = username.toLocaleLowecase();
+    const name = username.toLocaleLowercase();
     if (validateUtils.isValidUsername(name)){
       let result = await userCollection.findOne({username: name});
 
       if (result == null || result == undefined)
         throw new InvalidInputError("Username does not exist in the database.");
 
-      logger.info("Successfuly reading of user account");
+      logger.info("Successfully reading of user account");
       return result;
     }
   } catch (error) {
@@ -319,3 +318,15 @@ async function deleteUser(username, userPassword){
   }
 }
 
+module.exports = {
+  initialize,
+  close,
+  deleteUser,
+  checkCredentials,
+  updatePassword,
+  updateUsername,
+  getAllUsers,
+  getSingleUser,
+  createUser,
+  hasDuplicates
+};

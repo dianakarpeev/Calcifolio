@@ -34,11 +34,6 @@ async function handleGetAllArtwork(req, res) {
   }
 }
 
-
-
-
-
-
 router.post("/artworks", handleCreateArtwork);
 
 async function handleCreateArtwork(req, res) {
