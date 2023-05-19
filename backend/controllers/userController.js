@@ -23,10 +23,11 @@ router.post("/signup", handleCreateUser);
  * throws Exception if contact with unknown errors that are unexpected instead of 'swallowing' other types. 500
  */
 async function handleCreateUser(req, res) {
-  let userMessage;
 
+  let userMessage;
   try {
-    let username = req.body.username
+
+    let username = req.body.username;
     let password = req.body.password;
 
     let result = await model.createUser(username, password);
@@ -45,7 +46,7 @@ async function handleCreateUser(req, res) {
       res.status(500);
     } else {
       res.status(500);
-      userMessage = "Unexpected Error: failed to create new user " + username;
+      userMessage = "Unexpected Error: failed to create new user ";
     }
 
     res.send({ errorMessage: userMessage });
@@ -124,7 +125,7 @@ async function handleGetUserLogins(req, res) {
 }
 
 /* -------------------------- Update User (PUT) ------------------------- */
-router.put("/deadlines/:username", handleUpdateUser);
+router.put("/users/:username", handleUpdateUser);
 
 async function handleUpdateUser(req, res) {
   try {
@@ -218,7 +219,7 @@ async function handleUpdatePassword(req, res) {
 }
 
 /* -------------------------- Delete User (DELETE) -------------------------- */
-router.delete("/deadlines/:username", handleDeleteUser);
+router.delete("/users/:username", handleDeleteUser);
 
 async function handleDeleteUser(req, res) {
   let userMessage;
@@ -250,3 +251,8 @@ async function handleDeleteUser(req, res) {
     res.send({ errorMessage: userMessage });
   }
 }
+
+module.exports = {
+  router,
+  routeRoot,
+};
