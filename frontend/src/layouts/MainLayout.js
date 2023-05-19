@@ -8,11 +8,13 @@ import NavButton from "components/NavButton";
 import { Link } from "react-router-dom";
 import {DiAndroid} from "react-icons/di";
 import {VscAccount, VscPlay} from "react-icons/vsc";
-import { MdCalendarMonth , MdHome, MdBrush, MdContactPage, MdDensityMedium} from "react-icons/md";
+import { MdCalendarMonth , MdHome, MdBrush, MdContactPage, MdDensityMedium, MdOutlineLogin, MdArrowUpward} from "react-icons/md";
 import { createTheme,ThemeProvider } from "@mui/material/styles";
 import { orange } from '@mui/material/colors'; 
 import { deepOrange } from '@mui/material/colors'; 
 import { hover } from "@testing-library/user-event/dist/hover";
+import { useCookies } from 'react-cookie';
+import '../components/styles.css'
 
 function MainLayout() {
   const footer={
@@ -35,11 +37,14 @@ function MainLayout() {
       },
   }
 }
+
+const [cookies, setCookie] = useCookies(['user']);
+
   const {collapseSidebar} = useProSidebar();
    return   (
     
-   <div style={{ display: 'flex', height: '100%', minHeight: '100vh' }}>
-   <Sidebar backgroundColor="#292524" defaultCollapsed="true" collapsedWidth="60px" margin="0%" padding="100%">
+   <div  style={{ display: 'flex', height: '100%', minHeight: '100vh', backgroundColor: "#292524"}}>
+   <Sidebar backgroundColor="#292524" defaultCollapsed="true" collapsedWidth="60px" margin="0%" padding="0%">
      <Menu style = {{ display: "flex", flexDirection :"row", textAlign: "center", justifyContent: "flex-start"}} menuItemStyles={{
           button: {
               backgroundColor: '#292524',
@@ -62,13 +67,13 @@ function MainLayout() {
 
     </SubMenu>
     <SubMenu icon={<MdBrush/>} label="Art">
-    <MenuItem icon={<MdBrush/>} component={<Link to="/artworks" label="Artwork"/>}>Artork</MenuItem>
+    <MenuItem icon={<MdBrush/>} component={<Link to="/artworks" label="Artwork"/>}>Artwork</MenuItem>
     <MenuItem icon={<MdBrush/>}component={<Link to="/artworks/post" label="Art" />}>Post new art</MenuItem> 
 
     </SubMenu>  
-    <MenuItem icon={<VscAccount/>} component={<Link to="/about" label="About us" />}>About us</MenuItem>
+    <MenuItem icon={<MdOutlineLogin/>} component={<Link to="/login" label="Login" />}>Login</MenuItem>
     
-    <MenuItem icon={<MdContactPage/>} component={<Link to="/contact" label="Contact" />}>Contact</MenuItem>
+    <MenuItem icon={<MdArrowUpward/>} component={<Link to="/signup" label="Sign up" />}>Sign up</MenuItem>
      </Menu>
    </Sidebar>
    <main style={{ padding: 10 }}> 

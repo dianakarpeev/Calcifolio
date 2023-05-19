@@ -7,9 +7,8 @@ function ListVideos({ videos }) {
        <ul style={{display:"flex", flexDirection:"row", flexWrap:"wrap", width:"90vw"}}>
             {videos.map((video) => (
             <div>
-                
                 <DisplayVideo video = {video}/>
-                </div>
+            </div>
                 ))}
         </ul>
             

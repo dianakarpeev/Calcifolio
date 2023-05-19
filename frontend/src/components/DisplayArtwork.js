@@ -37,7 +37,7 @@ function DisplayArtwork(props) {
     
 
     if (edit) {
-       
+        navigate(`/artworks/update?name=${props.artwork.name}`);
     }
     else if (Delete) {
         //return nothing
