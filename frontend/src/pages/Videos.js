@@ -1,4 +1,4 @@
-import { CrudButtons } from "components/CrudButtons";
+import { VideoMenu } from "components/VideoMenu";
 import ErrorBoundary from "components/ErrorBoundary";
 import Alert from 'react-bootstrap/Alert';
 import { useLocation } from "react-router-dom";
@@ -11,7 +11,7 @@ function Videos() {
       <>
       <ErrorBoundary>
       {state && state.errorMessage && <Alert variant="danger" dismissible>{state.errorMessage}</Alert>}
-      <CrudButtons/>
+      <VideoMenu/>
       </ErrorBoundary>
       
       </>

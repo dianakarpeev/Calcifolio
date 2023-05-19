@@ -38,7 +38,7 @@ function MainLayout() {
   const {collapseSidebar} = useProSidebar();
    return   (
     
-   <div style={{ display: 'flex', height: '100%', minHeight: '100vh'}}>
+   <div style={{ display: 'flex', height: '100%', minHeight: '100vh' }}>
    <Sidebar backgroundColor="#292524" defaultCollapsed="true" collapsedWidth="60px" margin="0%" padding="100%">
      <Menu style = {{ display: "flex", flexDirection :"row", textAlign: "center", justifyContent: "flex-start"}} menuItemStyles={{
           button: {
@@ -52,12 +52,20 @@ function MainLayout() {
           }}}>
       <MenuItem icon={<MdDensityMedium/>} onClick={() => collapseSidebar()}></MenuItem>
      <MenuItem icon={<MdHome/>} component={<Link to="/" label="Home" />}>Home</MenuItem>
-     <SubMenu icon={<MdCalendarMonth/>} label="Deadlines" >
+     <SubMenu icon={<MdCalendarMonth/>} label="Deadlines">
     <MenuItem icon={<MdCalendarMonth/>} component={<Link to="/deadlines" label="Deadlines" />}>Deadlines</MenuItem>
     <MenuItem icon={<MdCalendarMonth/>} component={<Link to="/deadlines/create" label="Create deadline" />}>Create Deadline</MenuItem>
     </SubMenu>
-    <MenuItem icon={<VscPlay/>} component={<Link to="/videos" label="Videos" />}>Videos</MenuItem>
-    <MenuItem icon={<MdBrush/>}component={<Link to="/posts" label="Posts" />}>Art</MenuItem> 
+    <SubMenu icon={<VscPlay/>} label="Videos">
+    <MenuItem icon={<VscPlay/>} component={<Link to="/videos" label="Videos"/>}>Videos</MenuItem>
+    <MenuItem icon={<VscPlay/>} component={<Link to="/videos/new" label="Videos"/>}>Upload new video</MenuItem>
+
+    </SubMenu>
+    <SubMenu icon={<MdBrush/>} label="Art">
+    <MenuItem icon={<MdBrush/>} component={<Link to="/artworks" label="Artwork"/>}>Artork</MenuItem>
+    <MenuItem icon={<MdBrush/>}component={<Link to="/artworks/post" label="Art" />}>Post new art</MenuItem> 
+
+    </SubMenu>  
     <MenuItem icon={<VscAccount/>} component={<Link to="/about" label="About us" />}>About us</MenuItem>
     
     <MenuItem icon={<MdContactPage/>} component={<Link to="/contact" label="Contact" />}>Contact</MenuItem>

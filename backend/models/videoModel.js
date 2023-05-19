@@ -46,22 +46,20 @@ async function initialize(databaseName = dbName, reset, url) {
 /**
  * Adds a video to the database
  * @param title name of the video
- * @param length length of the video
+ * @param url url of the video
  * @returns video object if successful, throws error otherwise
- * @throws InvalidLengthError if length is not a valid time (i.e -1)
  * @throws InvalidTitleError if title is an empty string
  * @throws DatabaseError if any other error is thrown 
  */
-async function addVideo(title, length,image) {
+async function addVideo(title, url) {
   try {
-    if (validateUtils.isValid2(title, length)) {
-      await videoCollection.insertOne({ title: title, length: length, image: image});
-      return { title: title, length: length, image: image};
+    if (validateUtils.validTitle(title) && validateUtils.urlIsValid(url)) {
+      await videoCollection.insertOne({ title: title, url : url});
+      return { title: title, url: url};
     }
   } catch (err) {
-    if (err instanceof InvalidLengthError) {
-      throw new InvalidLengthError(err.message);
-    } else if (err instanceof InvalidTitleError) {
+
+    } if (err instanceof InvalidTitleError) {
       throw new InvalidTitleError(err.message);
     } else {
       throw new DatabaseError(
@@ -69,7 +67,6 @@ async function addVideo(title, length,image) {
       );
     }
   }
-}
 /**
  * Finds a video that matches the name parameter
  * @param {*} title Represents what a video is called on the website.
@@ -102,27 +99,21 @@ async function getSingleVideo(title) {
   }
 }
 /**
- * Updates a video so it has a new title and a new length
+ * Updates a video so it has a new title and a new url
  * @param {*} title title of the video we want to update
  * @param {*} newTitle new title of the video
- * @param {*} newLength new length of the video
+ * @param {*} newUrl new url of the video
  * @returns the object of the video before it was updated.
  * @throws InvalidLengthError if length is not a valid time (i.e -1)
  * @throws InvalidTitleError if title is an empty string
  * @throws DatabaseError if any other error is thrown 
  */
-async function updateVideo(title, newTitle, newLength, newImage) {
+async function updateVideo(title, newTitle, newUrl) {
   try {
-    if (
-      validateUtils.validTitle(title) &&
-      validateUtils.isValid2(newTitle, newLength)
-    ) {
-      let foundVideo = await getSingleVideo(title);
-    }
-    if (foundVideo) {
+    if (validateUtils.validTitle(newTitle) && validateUtils.urlIsValid(newUrl)) {
       await videoCollection.replaceOne(
         { title: title },
-        { title: newTitle, length: newLength, image: newImage}
+        { title: newTitle, url: newUrl}
       );
       foundVideo = await getSingleVideo(newTitle);
       logger.info("Video updated to " + foundVideo);
@@ -130,9 +121,7 @@ async function updateVideo(title, newTitle, newLength, newImage) {
     }
   } catch (err) {
     logger.error(err);
-    if (err instanceof InvalidLengthError) {
-      throw new InvalidLengthError(err.message);
-    } else if (err instanceof InvalidTitleError) {
+    } if (err instanceof InvalidTitleError) {
       throw new InvalidTitleError(err.message);
     } else {
       throw new DatabaseError(
@@ -140,7 +129,7 @@ async function updateVideo(title, newTitle, newLength, newImage) {
       );
     }
   }
-}
+
 /**
  * Deletes a video with the corresponding title from the collection
  * @param {*} title Title of video to be deleted

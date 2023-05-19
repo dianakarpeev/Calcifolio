@@ -83,7 +83,7 @@ async function addArtwork(name, url, date) {
   }
   const artwork = { name: name, url: url, date: date };
   await artworksCollection.insertOne(artwork);
-  return true;
+  return artwork;
 }
 
 /**
@@ -110,7 +110,7 @@ async function getSingleArtwork(name) {
  */
 async function getAllArtworks() {
   const cursor = await artworksCollection.find();
-  const collection = cursor.toArray();
+  const collection = await cursor.toArray();
 
   if (collection != null) return collection;
 

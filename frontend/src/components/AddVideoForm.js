@@ -1,25 +1,40 @@
 import { useRef } from "react";
 import {useNavigate} from "react-router-dom";
 import { Router } from "react-router-dom";
+import ReactPlayer from "react-player";
 function AddVideoForm(props) {
     const titleRef = useRef(null);
-    const lengthRef = useRef(null);
-    const imageRef = useRef(null);
+    const urlRef = useRef(null);
     const navigate = useNavigate();
 
-
+    const border3 = {
+        margin: "2rem",
+        padding: "2rem 2rem",
+        textAlign: "center",
+      };
+      const label = {
+        width: "180px",
+        clear: "left",
+        textAlign: "center",
+        paddingRight: "10px",
+      };
+      const button={
+        width: "180px",
+        clear: "left",
+        textAlign: "center",
+        paddingRight: "10px",
+      }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-
+        if (!ReactPlayer.canPlay(urlRef.current.value)) {
+            return;
+        }
         const requestOptions = {
             method: "POST",
             body: JSON.stringify({
                 title: titleRef.current.value,
-                length: lengthRef.current.value,
-                image: imageRef.current.value,
-
+                url: urlRef.current.value,
             }),
             headers: {
                 "Content-type" : "application/json; charset=UTF-8",
@@ -42,24 +57,32 @@ function AddVideoForm(props) {
 
 
     return (
+        <div>
         <form onSubmit={handleSubmit}>
-            <label htmlFor="title">Title</label>
-            <input type="text" placeholder="Title..." ref={titleRef} required/>
-
-            <label htmlFor="length">Length</label>
-            <input type="text" placeholder="Length..." ref={lengthRef} required/>
-
-            <label htmlFor="image">Image</label>
-            <input type="text" placeholder="Image..." ref={imageRef}/>
-
-
-            <button className="videoButton" type="submit">Add Video</button>
-
-
-            
-        </form>
-
-
+        <div style={border3}>
+          <label style={label} htmlFor="name">
+            Title
+          </label>
+          <input
+            type="text"
+            placeholder="Title..."
+            ref={titleRef}
+            required
+          />
+          <br />
+            <label style={label} htmlFor="url">
+            URL
+          </label>
+          <input
+            type="text"
+            placeholder="URL..."
+            ref={urlRef}
+            optional
+          />
+        </div>
+        <button style={button} type="submit">Create</button>
+      </form>
+      </div>
     );
 }
 export {AddVideoForm};

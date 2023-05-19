@@ -1,20 +1,25 @@
+import {DisplayVideo} from './DisplayVideo'
 function ListVideos({ videos }) {
 
-
+    if (videos.length > 0) {
     return (
         <div>
-            <h1> All Videos </h1>
-        <ul>
+       <ul style={{display:"flex", flexDirection:"row", flexWrap:"wrap", width:"90vw"}}>
             {videos.map((video) => (
-            <li key={video._id}>
-                {video.title} with length {video.length}
-                </li>
+            <div>
+                
+                <DisplayVideo video = {video}/>
+                </div>
                 ))}
         </ul>
             
 
         </div>
     )
+            }
+            return (
+                <></>
+            )
 }
 
 export {ListVideos}
