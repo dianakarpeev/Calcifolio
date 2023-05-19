@@ -157,7 +157,7 @@ async function createUser(username, password){
     try {
         let username = username.toLocaleLowercase();
         if (validateUtils.isValidUsername(username)){
-            if (validateUtils.isValidPassword(password) && !hasDuplicates(password)){
+            if (validateUtils.isValidPassword(password) && !hasDuplicates(username)){
                 const hashPassword = await bcrypt.hash(password, saltRounds);
                 const user = {username: username, password: hashPassword,};
                 await userCollection.insertOne(user);
