@@ -18,7 +18,13 @@ body {
   h1 {
     color: #FF9900;
   }
+  h2{
+    color: #FF9900;
+  }
   p {
+    color: #FF9900;
+  }
+  label {
     color: #FF9900;
   }
   
