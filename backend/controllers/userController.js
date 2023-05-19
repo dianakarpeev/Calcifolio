@@ -92,7 +92,7 @@ async function handleGetUser(req, res) {
     res.send({ errorMessage: userMessage });
   }
 }
-router.get("/login", handleGetUserLogins);
+router.post("/login", handleGetUserLogins);
 async function handleGetUserLogins(req, res) {
   let userMessage;
 
@@ -101,7 +101,7 @@ async function handleGetUserLogins(req, res) {
     let password = req.body.password;
     let result = await model.checkCredentials(username, password);
     console.log(result);
-    res.status(200);
+    res.  status(200);
     res.send(result);
   } catch (err) {
     console.log(err.message);
