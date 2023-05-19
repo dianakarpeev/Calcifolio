@@ -41,6 +41,37 @@ function MainLayout() {
 const [cookies, setCookie] = useCookies(['user']);
 
   const {collapseSidebar} = useProSidebar();
+
+if (cookies.user == null) {
+    return (
+      <div  style={{ display: 'flex', height: '100%', minHeight: '100vh', backgroundColor: "#292524"}}>
+   <Sidebar backgroundColor="#292524" defaultCollapsed="true" collapsedWidth="60px" margin="0%" padding="0%">
+     <Menu style = {{ display: "flex", flexDirection :"row", textAlign: "center", justifyContent: "flex-start"}} menuItemStyles={{
+          button: {
+              backgroundColor: '#292524',
+              color: '#f8fafc',
+              alignSelf : 'flex-start',
+              '&:hover': {
+                backgroundColor: '#f8fafc',
+                color: '#292524'
+            },
+          }}}>
+    <MenuItem icon={<MdDensityMedium/>} onClick={() => collapseSidebar()}></MenuItem>
+    <MenuItem icon={<MdHome/>} component={<Link to="/" label="Home" />}>Home</MenuItem>
+    <MenuItem icon={<MdOutlineLogin/>} component={<Link to="/login" label="Login" />}>Login</MenuItem>
+    <MenuItem icon={<MdArrowUpward/>} component={<Link to="/signup" label="Sign up" />}>Sign up</MenuItem>
+     </Menu>
+   </Sidebar>
+   <main style={{ padding: 10 }}> 
+
+<Header></Header>
+<Outlet></Outlet>
+
+</main>
+   </div>
+    )
+  }
+  else {
    return   (
     
    <div  style={{ display: 'flex', height: '100%', minHeight: '100vh', backgroundColor: "#292524"}}>
@@ -83,13 +114,9 @@ const [cookies, setCookie] = useCookies(['user']);
    
    </main>
  </div>
-);
+  
+);}
+        }
 
-
-
-
-            
-           
-      
-}   
+  
 export default MainLayout;

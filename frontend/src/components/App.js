@@ -14,19 +14,21 @@ import { DeleteVideo } from './DeleteVideo';
 import { UpdateVideo } from './UpdateVideo';
 import { AddDeadline } from './AddDeadline';
 import { useState } from "react";
+import { useCookies } from 'react-cookie';
 
 import TwoPanes from "./TwoPanes";
 import { AddArtwork } from './AddArtWork';
 import { UpdateArtwork } from './UpdateArtwork';
 import { Signup } from './Signup';
 import {Login} from './Login';
+import { Welcome } from './Welcome';
 
 /**
  * Displays the navigation bar paths
  * @returns routing of different endpoints
  */
 function App() {
-  
+  const [cookies, setCookie] = useCookies('[user]')
   const defaultRightPane = <p></p>;
   const [rightPane, setRightPane] = useState(defaultRightPane);
   const defaultLeftPane = <AddDeadline setDisplay={setRightPane} />;
@@ -34,7 +36,20 @@ function App() {
     <div>
     
     </div>
-
+  if (cookies.user == null) {
+    return (
+    <div className="App">
+    <Routes>
+    <Route path="/" element={<MainLayout />}>
+      <Route index element={<Welcome />} />
+      <Route path="login" element={<Login />} />
+      <Route path="signup" element={<Signup />} />
+      </Route>
+    </Routes>
+    </div>
+    );
+  }
+  else {
   return (
     <div className="App">
       <Routes>
@@ -66,5 +81,5 @@ function App() {
     </div>
   );
   }
-
+}
 export default App;
