@@ -4,9 +4,6 @@ const { InvalidInputError } = require("./InvalidInputError");
 const { DatabaseError } = require("./DatabaseError");
 const logger = require('../logger');
 
-
-
-
 //global variables
 let client;
 let dateCollection;

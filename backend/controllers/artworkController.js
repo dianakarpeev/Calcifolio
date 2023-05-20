@@ -5,10 +5,17 @@ const { InvalidInputError } = require("../models/InvalidInputError");
 const { DatabaseError } = require("../models/DatabaseError");
 const model = require("../models/artworkModelMongoDB");
 
-
-//GET ALL ARTWORKS
+//gets all artworks
 router.get("/artworks", handleGetAllArtwork);
 
+/**
+ * Handles getting all existing artworks in the database
+ * @param {object} req Expects no parameters
+ * @param {object} res To send all existing artworks
+ *  
+ * throws {DatabaseError} if the problem is related to the database connectivity and its interactions. 500
+ * throws Exception if the project comes to contact with unknown errors that are unexpected instead of 'swallowing' other types. 500
+ */
 async function handleGetAllArtwork(req, res) {
   try {
     let result = await model.getAllArtworks(); //this should throw an error when invalid
@@ -34,8 +41,18 @@ async function handleGetAllArtwork(req, res) {
   }
 }
 
+//creates a new artwork
 router.post("/artworks", handleCreateArtwork);
 
+/**
+ * Handles the creation of a new artwork in the database
+ * @param {object} req Expects body parameters of artworkName, artworkUrl and artworkDate
+ * @param {object} res Returns created artwork
+ * 
+ * throws {InvalidInputError} if any of the body parameters are in an incorrect format. 400
+ * throws {DatabaseError} if the problem is related to the database connectivity and its interactions. 500
+ * throws Exception if the project comes to contact with unknown errors that are unexpected instead of 'swallowing' other types. 500
+ */
 async function handleCreateArtwork(req, res) {
 try {
     let userMessage;
@@ -64,8 +81,18 @@ try {
   }
 }
 
+//deletes an existing artwork
 router.delete("/artworks/delete/:artworkName", handleDeleteArtwork);
 
+/**
+ * Handles deleting an existing artwork in the database.
+ * @param {object} req Expects artworkName body parameter
+ * @param {object} res To return deleted artwork
+ * 
+ * throws {InvalidInputError} if the artwork name was invalid or not found in the database. 400
+ * throws {DatabaseError} if the problem is related to the database connectivity and its interactions. 500
+ * throws Exception if the project comes to contact with unknown errors that are unexpected instead of 'swallowing' other types. 500
+ */
 async function handleDeleteArtwork(req, res) {
 try {
     let userMessage;
@@ -94,8 +121,22 @@ try {
   }
 }
 
-
+//updates existing artwork 
 router.put("/artworks/update/:artworkName", handleUpdateArtwork);
+
+/**
+ * Handles updating an existing artwork in the database. 
+ * Expects a artworkName parameter.
+ * @param {object} req Expects body parameters of:
+ *                 -NewArtworkName
+ *                 -NewArtowrkUrl
+ *                 -NewArtworkDate
+ * @param {object} res To return updated artwork
+ * 
+ * throws {InvalidInputError} if any of the parameters or invalid or artwork wasn't found in the database. 400
+ * throws {DatabaseError} if the problem is related to the database connectivity and its interactions. 500
+ * throws Exception if the project comes to contact with unknown errors that are unexpected instead of 'swallowing' other types. 500
+ */
 async function handleUpdateArtwork(req, res) {
   try {
       let userMessage;
@@ -125,6 +166,7 @@ async function handleUpdateArtwork(req, res) {
       res.send({ errorMessage: userMessage });
     }
   }
+  
 module.exports = {
     router,
     routeRoot,

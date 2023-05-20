@@ -93,7 +93,18 @@ async function handleGetUser(req, res) {
     res.send({ errorMessage: userMessage });
   }
 }
+
 router.post("/login", handleGetUserLogins);
+
+/**
+ * Handles authentication user when they attempt to login.
+ * @param {object} req Expects body parameters username and password
+ * @param {object} res To return true or false on whether the user is authenticated.
+ * 
+ * throws {InvalidInputError} if any property is invalid or user wasn't found in the database. 400
+ * throws {DatabaseError} if the problem is related to the database connectivity and its interactions. 500
+ * throws Exception if the project comes to contact with unknown errors that are unexpected instead of 'swallowing' other types. 500
+ */
 async function handleGetUserLogins(req, res) {
   let userMessage;
 
@@ -127,6 +138,15 @@ async function handleGetUserLogins(req, res) {
 /* -------------------------- Update User (PUT) ------------------------- */
 router.put("/users/:username", handleUpdateUser);
 
+/**
+ * Handles when a user tries to update their account. Can update either username or password.
+ * @param {*} req Expects newUsername parameter if updating username. newPassword parameter if updating password.
+ * @param {*} res Returns updated user
+ * 
+ * throws {InvalidInputError} if any of the properties are at an incorrect format. 400
+ * throws {DatabaseError} if the problem is related to the database connectivity and its interactions. 500
+ * throws Exception if the project comes to contact with unknown errors that are unexpected instead of 'swallowing' other types. 500
+ */
 async function handleUpdateUser(req, res) {
   try {
     if (req.body.newUsername != null && req.body.newUsername != undefined)
@@ -158,6 +178,15 @@ async function handleUpdateUser(req, res) {
   }
 }
 
+/**
+ * Handles when a user attempts to update their username to a new one.
+ * @param {object} req Expects username, newUsername and password body paramaters
+ * @param {object} res To return updated user
+ * 
+ * throws {InvalidInputError} if any parameters are invalid or user isn't found in the database. 400
+ * throws {DatabaseError} if the problem is related to the database connectivity and its interactions. 500
+ * throws Exception if the project comes to contact with unknown errors that are unexpected instead of 'swallowing' other types. 500
+ */
 async function handleUpdateUsername(req, res) {
   try {
     let username = req.params.username;
@@ -188,6 +217,15 @@ async function handleUpdateUsername(req, res) {
   }
 }
 
+/**
+ * Handles when a user attempts to update their password to a new one.
+ * @param {object} req Expects username, password and newPassword body paramaters
+ * @param {object} res To return updated user
+ * 
+ * throws {InvalidInputError} if any parameters are invalid or user isn't found in the database. 400
+ * throws {DatabaseError} if the problem is related to the database connectivity and its interactions. 500
+ * throws Exception if the project comes to contact with unknown errors that are unexpected instead of 'swallowing' other types. 500
+ */
 async function handleUpdatePassword(req, res) {
   try {
     let username = req.params.username;
@@ -221,6 +259,15 @@ async function handleUpdatePassword(req, res) {
 /* -------------------------- Delete User (DELETE) -------------------------- */
 router.delete("/users/:username", handleDeleteUser);
 
+/**
+ * Handles deleting existing user from the database.
+ * @param {object} req Expects username and password body properties.
+ * @param {object} res Returns deleted user
+ *
+ * throws {InvalidInputError} if any parameters are invalid or user isn't found in the database. 400
+ * throws {DatabaseError} if the problem is related to the database connectivity and its interactions. 500
+ * throws Exception if the project comes to contact with unknown errors that are unexpected instead of 'swallowing' other types. 500
+ */
 async function handleDeleteUser(req, res) {
   let userMessage;
 
