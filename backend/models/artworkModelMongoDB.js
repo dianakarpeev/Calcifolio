@@ -73,9 +73,9 @@ async function close() {
  */
 async function addArtwork(name, url, date) {
   if (
-    !validate.nameIsValid(name) ||
-    !validate.urlIsValid(url) ||
-    !validate.dateIsValid(date)
+    !validate.isValidName(name) ||
+    !validate.isValidUrl(url) ||
+    !validate.isValidDate2(date)
   ) {
     throw new InvalidInputError(
       "Name, URL or date of artwork to add is invalid."
@@ -93,7 +93,7 @@ async function addArtwork(name, url, date) {
  * @returns artwork object
  */
 async function getSingleArtwork(name) {
-  if (!validate.nameIsValid(name))
+  if (!validate.isValidName(name))
     throw new InvalidInputError("Name of artwork to find is invalid.");
 
   const results = await artworksCollection.findOne({ name: name });
@@ -129,7 +129,7 @@ async function getAllArtworks() {
  * @returns true if operation is successful
  */
 async function updateArtwork(oldName, newName, newURL, newDate) {
-  if (!validate.nameIsValid(oldName))
+  if (!validate.isValidName(oldName))
     throw new InvalidInputError(
       "Name of artwork to update is invalid. Please input a valid string."
     );
@@ -141,9 +141,9 @@ async function updateArtwork(oldName, newName, newURL, newDate) {
     );
 
   if (
-    validate.nameIsValid(newName) &&
-    validate.urlIsValid(newURL) &&
-    validate.dateIsValid(newDate)
+    validate.isValidName(newName) &&
+    validate.isValidUrl(newURL) &&
+    validate.isValidDate2(newDate)
   ) {
     await artworksCollection.updateOne(
       { name: oldName },
@@ -165,7 +165,7 @@ async function updateArtwork(oldName, newName, newURL, newDate) {
  * @returns true if successful
  */
 async function deleteArtwork(name) {
-  if (!validate.nameIsValid(name))
+  if (!validate.isValidName(name))
     throw new InvalidInputError(
       "Name of artwork to delete isn't valid. Please input a valid string."
     );

@@ -1,10 +1,10 @@
 import React from "react";
 import {Outlet} from "react-router-dom";
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import Header from '../components/useless/Header';
+import Footer from '../components/useless/Footer';
 import { ProSidebarProvider, SubMenu } from "react-pro-sidebar";
 import { Sidebar, Menu, MenuItem, useProSidebar } from 'react-pro-sidebar';
-import NavButton from "components/NavButton";
+import NavButton from "components/useless/NavButton";
 import { Link } from "react-router-dom";
 import {DiAndroid} from "react-icons/di";
 import {VscAccount, VscPlay} from "react-icons/vsc";

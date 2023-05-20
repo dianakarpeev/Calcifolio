@@ -8,7 +8,7 @@ import UserError from "../pages/UserError";
 import Deadlines from "../pages/Deadlines";
 import {AllArtwork} from './AllArtwork'
 import { AllVideos } from './AllVideos';
-import { SingleVideo } from './SingleVideo';
+import { SingleVideo } from './useless/SingleVideo';
 import { AddVideo } from './AddVideo';
 import { DeleteVideo } from './DeleteVideo';
 import { UpdateVideo } from './UpdateVideo';
