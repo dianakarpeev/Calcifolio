@@ -35,7 +35,9 @@ function LoginForm() {
             else {
                 setCookie('user', username.current.value, { path: '/' })
                 setCookie('password', pwd.current.value, { path: '/' })
-                navigate("/home");
+                navigate("/");
+                await window.location.reload(false);
+                
             }
         }
 

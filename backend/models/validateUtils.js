@@ -253,6 +253,8 @@ function isValidUsername(username) {
 
 }
 
+
+
 //VIDEO VALIDATORS
 
 /**Check to see if title is defined
