@@ -268,7 +268,7 @@ module.exports = {
 
 /**Check to see if title is defined
 
- * @param {string} title
+ * @param {string} title to validate
 
  * @returns true if title is valid. Throws InvalidTitleError otherwise
  */
