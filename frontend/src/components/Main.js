@@ -1,6 +1,4 @@
 import { useState } from "react";
-
-import TwoPanes from "./TwoPanes";
 import Menu from "./Menu";
 
 /** Main component for our home page. Maintains state for the two display panes. */

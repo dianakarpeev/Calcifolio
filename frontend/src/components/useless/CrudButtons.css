@@ -1,0 +1,19 @@
+.CRUD_Buttons {
+    
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: auto;
+    margin: auto;
+    padding: 10px;
+    column-gap: 0px;
+    justify-content: center;
+    align-content: center;
+    width: fit-content;
+    align-self: self-end;
+
+  
+}
+.CRUD_Buttons>* {
+    flex: 1;
+}
